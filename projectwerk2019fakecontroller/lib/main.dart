@@ -14,34 +14,31 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   PageController _pageController;
 
-  final roomController = TextEditingController();
-  final xValueController = TextEditingController();
-  final yValueController = TextEditingController();
+  final brokerAddressController = TextEditingController();
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   void dispose() {
     // Clean up the controller when the Widget is disposed
-    roomController.dispose();
-    xValueController.dispose();
-    yValueController.dispose();
+    brokerAddressController.dispose();
+    usernameController.dispose();
+    passwordController.dispose();
     super.dispose();
   }
 
   //String broker = 'eu.thethings.network';
-  String broker = 'labict.be';
+  String broker = "";
+  String username = "";
+  String password = "";
+
 
   mqtt.MqttClient client;
   mqtt.MqttConnectionState connectionState;
   Set<String> topics = Set<String>();
   StreamSubscription subscription;
 
-  String messageFromMqtt =
-      '{"app_id":"locationtracking","dev_id":"locationdevice1","hardware_serial":"00CE3CFCB095D853","port":1,"counter":5,"payload_raw":"AQ==",'
-      '"metadata":{"time":"2019-01-28T16:33:13.522531229Z","frequency":867.1,"modulation":"LORA","data_rate":"SF7BW125","airtime":46336000,"coding_rate":"4/5",'
-      '"gateways":['
-      '{"gtw_id":"eui-1dee09c05d572b28","timestamp":1179517907,"time":"","channel":3,"rssi":-0,"snr":5.8,"rf_chain":0,"latitude":51.193756,"longitude":3.2183638,"altitude":10,"location_source":"registry"},'
-      '{"gtw_id":"vives-ttn-03","gtw_trusted":true,"timestamp":3587962947,"time":"2019-01-28T16:33:17Z","channel":3,"rssi":-0,"snr":8.75,"rf_chain":0},'
-      '{"gtw_id":"vives-ttn-01","gtw_trusted":true,"timestamp":1142609643,"time":"2019-01-28T16:33:13Z","channel":3,"rssi":-0,"snr":9,"rf_chain":0}]}}';
+  String messageFromMqtt = '{}';
   //Map jsonMap = JSON.decode(messageFromMqtt);
   //Map<String, dynamic> user = jsonDecode(messageFromMqtt);
   //dynamic convert(String input) => _parseJson(input, _reviver);
@@ -49,73 +46,13 @@ class _MyHomePageState extends State<MyHomePage> {
   Map<String, dynamic> jsonMQTT;
 
   int _page = 0;
-  int gateway0 = 0;
-  int gateway1 = 0;
-  int gateway2 = 0;
 
-  String roomMeter = "";
-  int xValueMeter = 0;
-  int yValueMeter = 0;
-  String infoLocation = "not processing";
-
-  var roomMeterList = List<String>();
-  var xValueMeterList = List<int>();
-  var yValueMeterList = List<int>();
-
-  var rssi0List = List<int>();
-  var rssi1List = List<int>();
-  var rssi2List = List<int>();
-
-  void addValuesToArray() {
-    roomMeterList.add(roomController.text);
-    xValueMeterList.add(int.parse(xValueController.text));
-    yValueMeterList.add(int.parse(yValueController.text));
-
-    rssi0List.add(gateway0);
-    rssi1List.add(gateway1);
-    rssi2List.add(gateway2);
-    /*
-    roomController.clear();
-    xValueController.clear();
-    yValueController.clear();
-
-    */
+  void addValuesToMqttClient() {
+    broker = brokerAddressController.text;
+    username = usernameController.text;
+    password = passwordController.text;
   }
 
-  int listIndexSmallestDev = 0;
-
-  void locationAlgorithm() {
-    int devBetweenGatewayRssiList = 0;
-    int smallestDevBetweenGatewayRssiList = 10000;
-
-    for (int i = 0; i < xValueMeterList.length.abs(); i++) {
-      devBetweenGatewayRssiList = gateway0.abs() - rssi0List[i].abs();
-      devBetweenGatewayRssiList =
-          devBetweenGatewayRssiList + (gateway1.abs() - rssi1List[i].abs());
-      devBetweenGatewayRssiList =
-          devBetweenGatewayRssiList + (gateway2.abs() - rssi2List[i].abs());
-      print(i);
-      print(devBetweenGatewayRssiList);
-      infoLocation = "processing";
-      if (devBetweenGatewayRssiList.abs() < smallestDevBetweenGatewayRssiList.abs()) {
-        smallestDevBetweenGatewayRssiList = devBetweenGatewayRssiList.abs();
-        listIndexSmallestDev = i;
-        print(listIndexSmallestDev);
-        print("ifsmaller");
-        print(i);
-        print(devBetweenGatewayRssiList);
-        infoLocation = "chose the smallest";
-      }
-    }
-    roomMeter = roomMeterList[listIndexSmallestDev];
-    xValueMeter = xValueMeterList[listIndexSmallestDev];
-    yValueMeter = yValueMeterList[listIndexSmallestDev];
-    print("values finish");
-    print(listIndexSmallestDev);
-    print(gateway1.abs());
-
-    infoLocation = "new values from list";
-  }
 
   void _connect() async {
     /// First create a client, the client is constructed with a broker name, client identifier
@@ -160,6 +97,9 @@ class _MyHomePageState extends State<MyHomePage> {
     /// and clean session, an example of a specific one below.
     final mqtt.MqttConnectMessage connMess = mqtt.MqttConnectMessage()
         .withClientIdentifier('Mqtt_MyClientUniqueId2')
+
+        .authenticateAs(username, password) // important to connect to broker!!
+
         // Must agree with the keep alive set above or not set
         .startClean() // Non persistent session for testing
         .keepAliveFor(30)
@@ -196,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
     /// notifications of published updates to each subscribed topic.
     subscription = client.updates.listen(_onMessage);
 
-    _subscribeToTopic("locationtracking/devices/locationdevice1/up");
+    _subscribeToTopic("fakecontrollerout/");
   }
 
   void _disconnect() {
@@ -225,11 +165,12 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       this.messageFromMqtt = message;
 
-      jsonMQTT = jsonDecode(messageFromMqtt);
+      //jsonMQTT = jsonDecode(messageFromMqtt);
       setState(() {
-        gateway0 = jsonMQTT["metadata"]['gateways'][0]["rssi"];
-        gateway1 = jsonMQTT["metadata"]['gateways'][1]["rssi"];
-        gateway2 = jsonMQTT["metadata"]['gateways'][2]["rssi"];
+        /*
+        fakecontrollerGettingInformation = jsonMQTT["example"]['example2'][0]["example3"];
+
+        */
       });
     });
 
@@ -288,38 +229,23 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Indoor location"),
+              Text("Fakecontroller"),
               SizedBox(
                 width: 8.0,
               ),
               Icon(connectionStateIcon),
               SizedBox(height: 8.0),
               SizedBox(width: 8.0),
-              RaisedButton(
-                child: Text(client?.connectionState ==
-                        mqtt.MqttConnectionState.connected
-                    ? 'Disconnect'
-                    : 'Connect'),
-                textColor: Colors.white,
-                color: Colors.redAccent,
-                onPressed: () {
-                  if (client?.connectionState ==
-                      mqtt.MqttConnectionState.connected) {
-                    _disconnect();
-                  } else {
-                    _connect();
-                  }
-                },
-              ),
+
             ],
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-                icon: Icon(Icons.add_location), title: Text('New location')),
+                icon: Icon(Icons.build), title: Text('Add broker')),
             BottomNavigationBarItem(
-                icon: Icon(Icons.location_searching), title: Text('Locate')),
+                icon: Icon(Icons.gamepad), title: Text('Fakecontroller')),
           ],
           currentIndex: _page,
           fixedColor: Colors.blue,
@@ -329,15 +255,15 @@ class _MyHomePageState extends State<MyHomePage> {
           controller: _pageController,
           onPageChanged: onPageChanged,
           children: <Widget>[
-            _buildNewLocationPage(),
-            _buildLocatePage(),
+            _buildAddBrokerPage(),
+            _buildFakecontrollerPage(),
           ],
         ),
       ),
     );
   }
 
-  Column _buildNewLocationPage() {
+  Column _buildAddBrokerPage() {
     final _formKey = GlobalKey<FormState>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -345,115 +271,58 @@ class _MyHomePageState extends State<MyHomePage> {
         new ListTile(
           leading: const Icon(Icons.location_city),
           title: new TextField(
-            controller: roomController,
+            controller: brokerAddressController,
             decoration: new InputDecoration(
-              hintText: "Classroom",
+              hintText: "server address broker",
             ),
           ),
         ),
         new ListTile(
           leading: const Icon(Icons.more_horiz),
           title: new TextField(
-            controller: xValueController,
+            controller: usernameController,
             decoration: new InputDecoration(
-              hintText: "X-waarde",
+              hintText: "username",
             ),
-            keyboardType: TextInputType.number,
+            //keyboardType: TextInputType.number,
           ),
         ),
         new ListTile(
           leading: const Icon(Icons.more_vert),
           title: new TextField(
-            controller: yValueController,
+            controller: passwordController,
             decoration: new InputDecoration(
-              hintText: "Y-waarde",
+              hintText: "password",
             ),
-            keyboardType: TextInputType.number,
+            //keyboardType: TextInputType.number,
           ),
         ),
         RaisedButton(
-          onPressed: () {
-            setState(() {
-              addValuesToArray();
-            });
-          },
-          child: Text("Add location"),
+          child: Text(client?.connectionState ==
+              mqtt.MqttConnectionState.connected
+              ? 'Disconnect'
+              : 'Connect'),
           textColor: Colors.white,
-          color: Colors.cyanAccent,
+          color: Colors.redAccent,
+          onPressed: () {
+            addValuesToMqttClient();
+            if (client?.connectionState ==
+                mqtt.MqttConnectionState.connected) {
+              _disconnect();
+            } else {
+              _connect();
+            }
+          },
         ),
-        gatewayRSSI(),
       ],
     );
   }
 
-  Column _buildLocatePage() {
+  Column _buildFakecontrollerPage() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        new ListTile(
-          leading: const Icon(Icons.location_city),
-          title: new Text('Classroom: ${roomMeter}'),
-        ),
-        new ListTile(
-          leading: const Icon(Icons.more_horiz),
-          title: new Text('X-waarde: ${xValueMeter} m'),
-        ),
-        new ListTile(
-          leading: const Icon(Icons.more_vert),
-          title: new Text('Y-waarde: ${yValueMeter} m'),
-        ),
-        RaisedButton(
-          onPressed: () {
-            setState(() {
-              locationAlgorithm();
-              ;
-            });
+      //code anil
 
-          },
-          child: Text("Get location"),
-          textColor: Colors.white,
-          color: Colors.greenAccent,
-        ),
-        Text(infoLocation),
-        /*
-        Row(
-    mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Text(rssi0List[listIndexSmallestDev].toString()),
-            SizedBox(height: 8.0),
-            SizedBox(width: 8.0),
-            Text(rssi1List[listIndexSmallestDev].toString()),
-            SizedBox(height: 8.0),
-            SizedBox(width: 8.0),
-            Text(rssi2List[listIndexSmallestDev].toString()),
-            SizedBox(height: 8.0),
-            SizedBox(width: 8.0),
-          ],
-        ),
-        */
-        gatewayRSSI(),
-      ],
-    );
-  }
-
-  Column gatewayRSSI() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        new ListTile(
-          leading: const Icon(Icons.signal_cellular_4_bar),
-          title: new Text('rjsrytxytxh 1: $gateway0 dBm'),
-        ),
-        new ListTile(
-          leading: const Icon(Icons.signal_cellular_4_bar),
-          title: new Text('Gateway 2: $gateway1 dBm'),
-        ),
-        new ListTile(
-          leading: const Icon(Icons.signal_cellular_4_bar),
-          title: new Text('Gateway 3: $gateway2 dBm'),
-        ),
-      ],
-    );
+        );
   }
 
   void navigationTapped(int page) {
