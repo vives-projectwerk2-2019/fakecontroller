@@ -1,5 +1,5 @@
-name: projectwerk2019fakecontroller
-description: fakecontroller
+name: buttttons
+description: A new Flutter application.
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -13,7 +13,6 @@ environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
 
 dependencies:
-  mqtt_client: ^5.4.0
   flutter:
     sdk: flutter
 
