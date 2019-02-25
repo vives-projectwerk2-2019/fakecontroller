@@ -77,8 +77,8 @@ class AwesomeButtonState extends State<AwesomeButton> {
         appBar: new AppBar(title: new Text("Fake Controller"), backgroundColor: Colors.deepOrange),
         body: new Container(
 
-          child: new Center(
-          child: new Column(
+          child:  Center(
+          child:  Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
           new Text(displayedString, style: new TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
