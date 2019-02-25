@@ -23,9 +23,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void onPressed() {
     setState(() {
       displayedString = "I";
-      final mqtt.MqttClientPayloadBuilder builder = mqtt.MqttClientPayloadBuilder();
-      builder.addString('Hello from mqtt_client');
-      client.publishMessage(pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
+      final mqtt.MqttClientPayloadBuilder builder =
+          mqtt.MqttClientPayloadBuilder();
+      builder.addString(displayedString);
+      client.publishMessage(
+          pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
 
       //  counter = counter < 6 ? counter + 1 : 0;
     });
@@ -34,6 +36,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void onPressed1() {
     setState(() {
       displayedString = "Don't";
+      final mqtt.MqttClientPayloadBuilder builder =
+          mqtt.MqttClientPayloadBuilder();
+      builder.addString(displayedString);
+      client.publishMessage(
+          pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
       //  counter = counter < 6 ? counter + 1 : 0;
     });
   }
@@ -41,6 +48,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void onPressed2() {
     setState(() {
       displayedString = "Feel";
+      final mqtt.MqttClientPayloadBuilder builder =
+          mqtt.MqttClientPayloadBuilder();
+      builder.addString(displayedString);
+      client.publishMessage(
+          pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
       //   counter = counter < 6 ? counter + 1 : 0;
     });
   }
@@ -48,6 +60,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void onPressed3() {
     setState(() {
       displayedString = "So";
+      final mqtt.MqttClientPayloadBuilder builder =
+          mqtt.MqttClientPayloadBuilder();
+      builder.addString(displayedString);
+      client.publishMessage(
+          pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
       //  counter = counter < 6 ? counter + 1 : 0;
     });
   }
@@ -55,6 +72,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void onPressed4() {
     setState(() {
       displayedString = "Good";
+      final mqtt.MqttClientPayloadBuilder builder =
+          mqtt.MqttClientPayloadBuilder();
+      builder.addString(displayedString);
+      client.publishMessage(
+          pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
       // counter = counter < 6 ? counter + 1 : 0;
     });
   }
@@ -62,6 +84,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void onPressed5() {
     setState(() {
       displayedString = "Mr.Stark";
+      final mqtt.MqttClientPayloadBuilder builder =
+          mqtt.MqttClientPayloadBuilder();
+      builder.addString(displayedString);
+      client.publishMessage(
+          pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
       // counter = counter < 6 ? counter + 1 : 0;
     });
   }
@@ -69,6 +96,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void onPressed6() {
     setState(() {
       displayedString = "The cycle of life continues";
+      final mqtt.MqttClientPayloadBuilder builder =
+          mqtt.MqttClientPayloadBuilder();
+      builder.addString(displayedString);
+      client.publishMessage(
+          pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
       // counter = counter < 6 ? counter + 1 : 0;
     });
   }
@@ -76,6 +108,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void onPressed7() {
     setState(() {
       displayedString = "I will live, u will die";
+      final mqtt.MqttClientPayloadBuilder builder =
+          mqtt.MqttClientPayloadBuilder();
+      builder.addString(displayedString);
+      client.publishMessage(
+          pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
       // counter = counter < 6 ? counter + 1 : 0;
     });
   }
@@ -403,30 +440,26 @@ class _MyHomePageState extends State<MyHomePage> {
             child: new Icon(Icons.arrow_left),
             color: Colors.red,
             onPressed: onPressed2),
-        /*   new RaisedButton(
-                          child: new Icon(Icons.arrow_right),
-                          color: Colors.red,
-                          onPressed: onPressed3
-                      ),new RaisedButton(
-                          child:new Icon(Icons.power),
-                          color: Colors.red,
-                          onPressed: onPressed4
-                      ),
-                      new RaisedButton(
-                          child: new Icon(Icons.info),
-                          color: Colors.red,
-                          onPressed: onPressed5
-                      ),
-                      new RaisedButton(
-                          child: new Icon(Icons.delete),
-                          color: Colors.red,
-                          onPressed: onPressed6
-                      ),
-                      new RaisedButton(
-                          child: new Icon(Icons.change_history),
-                          color: Colors.red,
-                          onPressed: onPressed7
-                      ),*/
+        new RaisedButton(
+            child: new Icon(Icons.arrow_right),
+            color: Colors.red,
+            onPressed: onPressed3),
+        new RaisedButton(
+            child: new Icon(Icons.power),
+            color: Colors.red,
+            onPressed: onPressed4),
+        new RaisedButton(
+            child: new Icon(Icons.info),
+            color: Colors.red,
+            onPressed: onPressed5),
+        new RaisedButton(
+            child: new Icon(Icons.delete),
+            color: Colors.red,
+            onPressed: onPressed6),
+        new RaisedButton(
+            child: new Icon(Icons.change_history),
+            color: Colors.red,
+            onPressed: onPressed7),
       ],
       //),
       //),
