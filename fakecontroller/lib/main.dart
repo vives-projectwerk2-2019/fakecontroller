@@ -17,12 +17,13 @@ class _MyHomePageState extends State<MyHomePage> {
   String displayedString = "";
 
   static const String pubTopic = 'fakecontroller/';
-  final mqtt.MqttClientPayloadBuilder builder = mqtt.MqttClientPayloadBuilder();
+
   //builder.addString('Hello from mqtt_client');
 
   void onPressed() {
     setState(() {
       displayedString = "I";
+      final mqtt.MqttClientPayloadBuilder builder = mqtt.MqttClientPayloadBuilder();
       builder.addString('Hello from mqtt_client');
       client.publishMessage(pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
 
