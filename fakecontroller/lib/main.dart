@@ -367,30 +367,30 @@ class _MyHomePageState extends State<MyHomePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        new ListTile(
+        ListTile(
           leading: const Icon(Icons.location_city),
-          title: new TextField(
+          title: TextField(
             controller: brokerAddressController,
-            decoration: new InputDecoration(
+            decoration: InputDecoration(
               hintText: "server address broker",
             ),
           ),
         ),
-        new ListTile(
+        ListTile(
           leading: const Icon(Icons.more_horiz),
-          title: new TextField(
+          title: TextField(
             controller: usernameController,
-            decoration: new InputDecoration(
+            decoration: InputDecoration(
               hintText: "username",
             ),
             //keyboardType: TextInputType.number,
           ),
         ),
-        new ListTile(
+        ListTile(
           leading: const Icon(Icons.more_vert),
-          title: new TextField(
+          title: TextField(
             controller: passwordController,
-            decoration: new InputDecoration(
+            decoration: InputDecoration(
               hintText: "password",
             ),
             //keyboardType: TextInputType.number,
@@ -416,8 +416,10 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Column _buildFakecontrollerPage() {
-    return Column(
+  Row _buildFakecontrollerPage() {
+    return Row(
+
+
       //code anil
       //child: new Container(
 
@@ -432,32 +434,32 @@ class _MyHomePageState extends State<MyHomePage> {
             child: new Icon(Icons.arrow_drop_up),
             color: Colors.red,
             onPressed: onPressed),
-        new RaisedButton(
-            child: new Icon(Icons.arrow_drop_down),
+        RaisedButton(
+            child: Icon(Icons.arrow_drop_down),
             color: Colors.red,
             onPressed: onPressed1),
-        new RaisedButton(
-            child: new Icon(Icons.arrow_left),
+        RaisedButton(
+            child: Icon(Icons.arrow_left),
             color: Colors.red,
             onPressed: onPressed2),
-        new RaisedButton(
-            child: new Icon(Icons.arrow_right),
+        RaisedButton(
+            child: Icon(Icons.arrow_right),
             color: Colors.red,
             onPressed: onPressed3),
-        new RaisedButton(
-            child: new Icon(Icons.power),
+        RaisedButton(
+            child: Icon(Icons.power),
             color: Colors.red,
             onPressed: onPressed4),
-        new RaisedButton(
-            child: new Icon(Icons.info),
+        RaisedButton(
+            child: Icon(Icons.info),
             color: Colors.red,
             onPressed: onPressed5),
-        new RaisedButton(
-            child: new Icon(Icons.delete),
+        RaisedButton(
+            child:  Icon(Icons.delete),
             color: Colors.red,
             onPressed: onPressed6),
-        new RaisedButton(
-            child: new Icon(Icons.change_history),
+        RaisedButton(
+            child:  Icon(Icons.change_history),
             color: Colors.red,
             onPressed: onPressed7),
       ],
