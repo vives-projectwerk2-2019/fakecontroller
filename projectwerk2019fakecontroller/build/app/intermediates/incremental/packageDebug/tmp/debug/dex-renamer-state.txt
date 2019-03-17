@@ -1,4 +1,0 @@
-#Sun Feb 24 10:21:07 CET 2019
-base.0=C\:\\Users\\tomorrowtech\\stack\\ICT-Electronica\\sem_4\\project-werk2-BUG\\fakecontroller\\projectwerk2019fakecontroller\\build\\app\\intermediates\\transforms\\dexMerger\\debug\\0
-path.0=classes.dex
-renamed.0=classes.dex
