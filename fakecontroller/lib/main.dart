@@ -16,26 +16,24 @@ class _MyHomePageState extends State<MyHomePage> {
 
   String displayedString = "";
 
-  static const String pubTopic = 'fakecontroller/';
+  static const String pubTopic = 'TTN';
 
   //builder.addString('Hello from mqtt_client');
 
   void onPressed() {
     setState(() {
-      displayedString = "I";
+      displayedString = '{movement = "links"}';
       final mqtt.MqttClientPayloadBuilder builder =
           mqtt.MqttClientPayloadBuilder();
       builder.addString(displayedString);
       client.publishMessage(
           pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
-
-      //  counter = counter < 6 ? counter + 1 : 0;
     });
   }
 
-  void onPressed1() {
+  void onPressedLeft() {
     setState(() {
-      displayedString = "Don't";
+      displayedString = '{movement = "links"}';
       final mqtt.MqttClientPayloadBuilder builder =
           mqtt.MqttClientPayloadBuilder();
       builder.addString(displayedString);
@@ -45,9 +43,9 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void onPressed2() {
+  void onPressedUp() {
     setState(() {
-      displayedString = "Feel";
+      displayedString = '{movement = "vooruit"}';
       final mqtt.MqttClientPayloadBuilder builder =
           mqtt.MqttClientPayloadBuilder();
       builder.addString(displayedString);
@@ -57,9 +55,9 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void onPressed3() {
+  void onPressedDown() {
     setState(() {
-      displayedString = "So";
+      displayedString = '{movement = "achteruit"}';
       final mqtt.MqttClientPayloadBuilder builder =
           mqtt.MqttClientPayloadBuilder();
       builder.addString(displayedString);
@@ -69,9 +67,9 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void onPressed4() {
+  void onPressedRight() {
     setState(() {
-      displayedString = "Good";
+      displayedString = '{movement = "rechts"}';
       final mqtt.MqttClientPayloadBuilder builder =
           mqtt.MqttClientPayloadBuilder();
       builder.addString(displayedString);
@@ -81,9 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void onPressed5() {
+  void onPressedMidButtonA() {
     setState(() {
-      displayedString = "Mr.Stark";
+      displayedString = '{action = "A"}';
       final mqtt.MqttClientPayloadBuilder builder =
           mqtt.MqttClientPayloadBuilder();
       builder.addString(displayedString);
@@ -93,9 +91,9 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void onPressed6() {
+  void onPressedMidButtonB() {
     setState(() {
-      displayedString = "The cycle of life continues";
+      displayedString = '{action = "B"}';
       final mqtt.MqttClientPayloadBuilder builder =
           mqtt.MqttClientPayloadBuilder();
       builder.addString(displayedString);
@@ -105,7 +103,43 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void onPressed7() {
+  void onPressedMidButtonX() {
+    setState(() {
+      displayedString = '{action = "X"}';
+      final mqtt.MqttClientPayloadBuilder builder =
+          mqtt.MqttClientPayloadBuilder();
+      builder.addString(displayedString);
+      client.publishMessage(
+          pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
+      // counter = counter < 6 ? counter + 1 : 0;
+    });
+  }
+
+  void onPressed8() {
+    setState(() {
+      displayedString = "I will live, u will die";
+      final mqtt.MqttClientPayloadBuilder builder =
+          mqtt.MqttClientPayloadBuilder();
+      builder.addString(displayedString);
+      client.publishMessage(
+          pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
+      // counter = counter < 6 ? counter + 1 : 0;
+    });
+  }
+
+  void onPressed9() {
+    setState(() {
+      displayedString = "I will live, u will die";
+      final mqtt.MqttClientPayloadBuilder builder =
+          mqtt.MqttClientPayloadBuilder();
+      builder.addString(displayedString);
+      client.publishMessage(
+          pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
+      // counter = counter < 6 ? counter + 1 : 0;
+    });
+  }
+
+  void onPressed10() {
     setState(() {
       displayedString = "I will live, u will die";
       final mqtt.MqttClientPayloadBuilder builder =
@@ -367,30 +401,30 @@ class _MyHomePageState extends State<MyHomePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        new ListTile(
+        ListTile(
           leading: const Icon(Icons.location_city),
-          title: new TextField(
+          title: TextField(
             controller: brokerAddressController,
-            decoration: new InputDecoration(
+            decoration: InputDecoration(
               hintText: "server address broker",
             ),
           ),
         ),
-        new ListTile(
+        ListTile(
           leading: const Icon(Icons.more_horiz),
-          title: new TextField(
+          title: TextField(
             controller: usernameController,
-            decoration: new InputDecoration(
+            decoration: InputDecoration(
               hintText: "username",
             ),
             //keyboardType: TextInputType.number,
           ),
         ),
-        new ListTile(
+        ListTile(
           leading: const Icon(Icons.more_vert),
-          title: new TextField(
+          title: TextField(
             controller: passwordController,
-            decoration: new InputDecoration(
+            decoration: InputDecoration(
               hintText: "password",
             ),
             //keyboardType: TextInputType.number,
@@ -416,53 +450,187 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Column _buildFakecontrollerPage() {
-    return Column(
-      //code anil
-      //child: new Container(
+  Container _buildFakecontrollerPage() {
+    return Container(
 
-      //child:  Center(
+      child: Center(
+        child: Row(
+          children: <Widget>[
+            //1e colom
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                    padding: EdgeInsets.all(5.0),
+                    child: Text(" "),
+                  ),
+                ),
+                buttonController(Icons.arrow_left, onPressedLeft),
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text(" "),
+                  ),
+                ),
+              ],
+            ),
+            //2e colom
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                buttonController(Icons.arrow_drop_up, onPressedUp),
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                    child: Text(""),
+                  ),
+                ),
+                buttonController(Icons.arrow_drop_down, onPressedDown),
+              ],
+            ),
+            //3e colom
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text(""),
+                  ),
+                ),
+                buttonController(Icons.arrow_right, onPressedRight),
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text(" "),
+                  ),
+                ),
+              ],
+            ),
+            //4e colom
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text(""),
+                  ),
+                ),
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                    child: Text(""),
+                  ),
+                ),
+                buttonController(Icons.adjust, onPressedMidButtonA),
+              ],
+            ),
 
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        new Text(displayedString,
-            style: new TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
-        new Padding(padding: new EdgeInsets.all(10.0)),
-        new RaisedButton(
-            child: new Icon(Icons.arrow_drop_up),
-            color: Colors.red,
-            onPressed: onPressed),
-        new RaisedButton(
-            child: new Icon(Icons.arrow_drop_down),
-            color: Colors.red,
-            onPressed: onPressed1),
-        new RaisedButton(
-            child: new Icon(Icons.arrow_left),
-            color: Colors.red,
-            onPressed: onPressed2),
-        new RaisedButton(
-            child: new Icon(Icons.arrow_right),
-            color: Colors.red,
-            onPressed: onPressed3),
-        new RaisedButton(
-            child: new Icon(Icons.power),
-            color: Colors.red,
-            onPressed: onPressed4),
-        new RaisedButton(
-            child: new Icon(Icons.info),
-            color: Colors.red,
-            onPressed: onPressed5),
-        new RaisedButton(
-            child: new Icon(Icons.delete),
-            color: Colors.red,
-            onPressed: onPressed6),
-        new RaisedButton(
-            child: new Icon(Icons.change_history),
-            color: Colors.red,
-            onPressed: onPressed7),
-      ],
-      //),
-      //),
+            //5e kolom
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text(""),
+                  ),
+                ),
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                    child: Text(""),
+                  ),
+                ),
+                buttonController(Icons.adjust, onPressedMidButtonB),
+              ],
+            ),
+            //6e colom
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text(""),
+                  ),
+                ),
+                buttonController(Icons.arrow_left, onPressedMidButtonX),
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text(""),
+                  ),
+                ),
+              ],
+            ),
+            //7ecolom
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                buttonController(Icons.arrow_drop_up, onPressed8),
+                Container(
+                  padding: EdgeInsets.all(10.0),
+                  child: Text(""),
+                ),
+                buttonController(Icons.arrow_drop_down, onPressed9),
+              ],
+            ),
+//8e colom
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text(""),
+                  ),
+                ),
+                buttonController(Icons.arrow_right, onPressed10),
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text(""),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buttonController(IconData button, method) {
+    return Flexible(
+      flex: 1,
+      child: Container(
+        padding: EdgeInsets.all(10.0),
+        child: ButtonTheme(
+          minWidth: 50.0,
+          height: 50.0,
+          child: RaisedButton(
+              child: Icon(button), color: Colors.red, onPressed: method),
+        ),
+      ),
     );
   }
 
