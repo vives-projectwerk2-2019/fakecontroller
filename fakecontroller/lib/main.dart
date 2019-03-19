@@ -13,8 +13,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-
   PageController _pageController;
 
   String displayedString = "";
@@ -25,9 +23,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void onPressed() {
     setState(() {
-      displayedString = '{"action":"X","movement":"left","dev_id":"ttn_simulator"}';
+      displayedString =
+          '{"action":"X","movement":"left","dev_id":"ttn_simulator"}';
       final mqtt.MqttClientPayloadBuilder builder =
-      mqtt.MqttClientPayloadBuilder();
+          mqtt.MqttClientPayloadBuilder();
       builder.addString(displayedString);
       client.publishMessage(
           pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
@@ -36,9 +35,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void onPressedLeft() {
     setState(() {
-      displayedString = '{"action":"X","movement":"left","dev_id":"ttn_simulator"}';
+      displayedString =
+          '{"action":"X","movement":"left","dev_id":"ttn_simulator"}';
       final mqtt.MqttClientPayloadBuilder builder =
-      mqtt.MqttClientPayloadBuilder();
+          mqtt.MqttClientPayloadBuilder();
       builder.addString(displayedString);
       client.publishMessage(
           pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
@@ -48,9 +48,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void onPressedUp() {
     setState(() {
-      displayedString = '{"action":"X","movement":"left","dev_id":"virtual_controller"}';
+      displayedString =
+          '{"action":"X","movement":"left","dev_id":"virtual_controller"}';
       final mqtt.MqttClientPayloadBuilder builder =
-      mqtt.MqttClientPayloadBuilder();
+          mqtt.MqttClientPayloadBuilder();
       builder.addString(displayedString);
       client.publishMessage(
           pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
@@ -60,9 +61,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void onPressedDown() {
     setState(() {
-      displayedString = '{"action":"X","movement":"left","dev_id":"virtual_controller"}';
+      displayedString =
+          '{"action":"X","movement":"left","dev_id":"virtual_controller"}';
       final mqtt.MqttClientPayloadBuilder builder =
-      mqtt.MqttClientPayloadBuilder();
+          mqtt.MqttClientPayloadBuilder();
       builder.addString(displayedString);
       client.publishMessage(
           pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
@@ -72,9 +74,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void onPressedRight() {
     setState(() {
-      displayedString = '{"action":"X","movement":"left","dev_id":"ttn_simulator"}';
+      displayedString =
+          '{"action":"X","movement":"left","dev_id":"ttn_simulator"}';
       final mqtt.MqttClientPayloadBuilder builder =
-      mqtt.MqttClientPayloadBuilder();
+          mqtt.MqttClientPayloadBuilder();
       builder.addString(displayedString);
       client.publishMessage(
           pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
@@ -86,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       displayedString = '{action = "A"}';
       final mqtt.MqttClientPayloadBuilder builder =
-      mqtt.MqttClientPayloadBuilder();
+          mqtt.MqttClientPayloadBuilder();
       builder.addString(displayedString);
       client.publishMessage(
           pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
@@ -98,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       displayedString = '{action = "B"}';
       final mqtt.MqttClientPayloadBuilder builder =
-      mqtt.MqttClientPayloadBuilder();
+          mqtt.MqttClientPayloadBuilder();
       builder.addString(displayedString);
       client.publishMessage(
           pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
@@ -110,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       displayedString = '{action = "X"}';
       final mqtt.MqttClientPayloadBuilder builder =
-      mqtt.MqttClientPayloadBuilder();
+          mqtt.MqttClientPayloadBuilder();
       builder.addString(displayedString);
       client.publishMessage(
           pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
@@ -122,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       displayedString = "I will live, u will die";
       final mqtt.MqttClientPayloadBuilder builder =
-      mqtt.MqttClientPayloadBuilder();
+          mqtt.MqttClientPayloadBuilder();
       builder.addString(displayedString);
       client.publishMessage(
           pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
@@ -134,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       displayedString = "I will live, u will die";
       final mqtt.MqttClientPayloadBuilder builder =
-      mqtt.MqttClientPayloadBuilder();
+          mqtt.MqttClientPayloadBuilder();
       builder.addString(displayedString);
       client.publishMessage(
           pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
@@ -146,7 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       displayedString = "I will live, u will die";
       final mqtt.MqttClientPayloadBuilder builder =
-      mqtt.MqttClientPayloadBuilder();
+          mqtt.MqttClientPayloadBuilder();
       builder.addString(displayedString);
       client.publishMessage(
           pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
@@ -237,10 +240,10 @@ class _MyHomePageState extends State<MyHomePage> {
         .withClientIdentifier('Mqtt_MyClientUniqueId2')
         .authenticateAs(username, password) // important to connect to broker!!
 
-    // Must agree with the keep alive set above or not set
+        // Must agree with the keep alive set above or not set
         .startClean() // Non persistent session for testing
         .keepAliveFor(30)
-    // If you set this you must set a will message
+        // If you set this you must set a will message
         .withWillTopic('willtopic')
         .withWillMessage('My Will message')
         .withWillQos(mqtt.MqttQos.atLeastOnce);
@@ -295,9 +298,9 @@ class _MyHomePageState extends State<MyHomePage> {
   void _onMessage(List<mqtt.MqttReceivedMessage> event) {
     print(event.length);
     final mqtt.MqttPublishMessage recMess =
-    event[0].payload as mqtt.MqttPublishMessage;
+        event[0].payload as mqtt.MqttPublishMessage;
     final String message =
-    mqtt.MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+        mqtt.MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
 
     setState(() {
       this.messageFromMqtt = message;
@@ -370,7 +373,7 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Fakecontroller"),
+              Text("BUG Controller"),
               SizedBox(
                 width: 8.0,
               ),
@@ -385,7 +388,7 @@ class _MyHomePageState extends State<MyHomePage> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.build), title: Text('Add broker')),
             BottomNavigationBarItem(
-                icon: Icon(Icons.gamepad), title: Text('Fakecontroller')),
+                icon: Icon(Icons.gamepad), title: Text('BUG Controller')),
           ],
           currentIndex: _page,
           fixedColor: Colors.blue,
@@ -457,210 +460,206 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-
   Container _buildFakecontrollerPage() {
     return Container(
-
-
       child: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(8.0),
-      child: Row(
-      children: <Widget>[
-      //1e colom
-      Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-      Flexible(
+          child: Row(
+            children: <Widget>[
+              //1e colom
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      padding: EdgeInsets.all(5.0),
+                      child: Text(" "),
+                    ),
+                  ),
+                  buttonController(Icons.arrow_left, onPressedLeft),
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      padding: EdgeInsets.all(10.0),
+                      child: Text(" "),
+                    ),
+                  ),
+                ],
+              ),
+              //2e colom
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  buttonController(Icons.arrow_drop_up, onPressedUp),
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      child: Text(""),
+                    ),
+                  ),
+                  buttonController(Icons.arrow_drop_down, onPressedDown),
+                ],
+              ),
+              //3e colom
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      padding: EdgeInsets.all(10.0),
+                      child: Text(""),
+                    ),
+                  ),
+                  buttonController(Icons.arrow_right, onPressedRight),
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      padding: EdgeInsets.all(10.0),
+                      child: Text(" "),
+                    ),
+                  ),
+                ],
+              ),
+              //4e colom
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      padding: EdgeInsets.all(10.0),
+                      child: Text(""),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      child: Text(""),
+                    ),
+                  ),
+                  buttonController(Icons.adjust, onPressedMidButtonA),
+                ],
+              ),
+
+              //5e kolom
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      padding: EdgeInsets.all(10.0),
+                      child: Text(""),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      child: Text(""),
+                    ),
+                  ),
+                  buttonController(Icons.adjust, onPressedMidButtonB),
+                ],
+              ),
+              //6e colom
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      padding: EdgeInsets.all(10.0),
+                      child: Text(""),
+                    ),
+                  ),
+                  buttonController(Icons.arrow_left, onPressedMidButtonX),
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      padding: EdgeInsets.all(10.0),
+                      child: Text(""),
+                    ),
+                  ),
+                ],
+              ),
+              //7ecolom
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  buttonController(Icons.arrow_drop_up, onPressed8),
+                  Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text(""),
+                  ),
+                  buttonController(Icons.arrow_drop_down, onPressed9),
+                ],
+              ),
+//8e colom
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      padding: EdgeInsets.all(10.0),
+                      child: Text(""),
+                    ),
+                  ),
+                  buttonController(Icons.arrow_right, onPressed10),
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      padding: EdgeInsets.all(10.0),
+                      child: Text(""),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buttonController(IconData button, method) {
+    return Flexible(
       flex: 1,
       child: Container(
-      padding: EdgeInsets.all(5.0),
-    child: Text(" "),
-    ),
-    ),
-    buttonController(Icons.arrow_left, onPressedLeft),
-    Flexible(
-    flex: 1,
-    child: Container(
-    padding: EdgeInsets.all(10.0),
-    child: Text(" "),
-    ),
-    ),
-    ],
-    ),
-    //2e colom
-    Column(
-    mainAxisSize: MainAxisSize.min,
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-    buttonController(Icons.arrow_drop_up, onPressedUp),
-    Flexible(
-    flex: 1,
-    child: Container(
-    child: Text(""),
-    ),
-    ),
-    buttonController(Icons.arrow_drop_down, onPressedDown),
-    ],
-    ),
-    //3e colom
-    Column(
-    mainAxisSize: MainAxisSize.min,
-    children: <Widget>[
-    Flexible(
-    flex: 1,
-    child: Container(
-    padding: EdgeInsets.all(10.0),
-    child: Text(""),
-    ),
-    ),
-    buttonController(Icons.arrow_right, onPressedRight),
-    Flexible(
-    flex: 1,
-    child: Container(
-    padding: EdgeInsets.all(10.0),
-    child: Text(" "),
-    ),
-    ),
-    ],
-    ),
-    //4e colom
-    Column(
-    mainAxisSize: MainAxisSize.min,
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-    Flexible(
-    flex: 1,
-    child: Container(
-    padding: EdgeInsets.all(10.0),
-    child: Text(""),
-    ),
-    ),
-    Flexible(
-    flex: 1,
-    child: Container(
-    child: Text(""),
-    ),
-    ),
-    buttonController(Icons.adjust, onPressedMidButtonA),
-    ],
-    ),
-
-
-    //5e kolom
-    Column(
-    mainAxisSize: MainAxisSize.min,
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-    Flexible(
-    flex: 1,
-    child: Container(
-    padding: EdgeInsets.all(10.0),
-    child: Text(""),
-    ),
-    ),
-    Flexible(
-    flex: 1,
-    child: Container(
-    child: Text(""),
-    ),
-    ),
-    buttonController(Icons.adjust, onPressedMidButtonB),
-    ],
-    ),
-    //6e colom
-    Column(
-    mainAxisSize: MainAxisSize.min,
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-    Flexible(
-    flex: 1,
-    child: Container(
-    padding: EdgeInsets.all(10.0),
-    child: Text(""),
-    ),
-    ),
-    buttonController(Icons.arrow_left, onPressedMidButtonX),
-    Flexible(
-    flex: 1,
-    child: Container(
-    padding: EdgeInsets.all(10.0),
-    child: Text(""),
-    ),
-    ),
-    ],
-    ),
-    //7ecolom
-    Column(
-    mainAxisSize: MainAxisSize.min,
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-    buttonController(Icons.arrow_drop_up, onPressed8),
-    Container(
-    padding: EdgeInsets.all(10.0),
-    child: Text(""),
-    ),
-    buttonController(Icons.arrow_drop_down, onPressed9),
-    ],
-    ),
-//8e colom
-    Column(
-    mainAxisSize: MainAxisSize.min,
-    children: <Widget>[
-    Flexible(
-    flex: 1,
-    child: Container(
-    padding: EdgeInsets.all(10.0),
-    child: Text(""),
-    ),
-    ),
-    buttonController(Icons.arrow_right, onPressed10),
-    Flexible(
-    flex: 1,
-    child: Container(
-    padding: EdgeInsets.all(10.0),
-    child: Text(""),
-    ),
-    ),
-    ],
-    ),
-    ],
-    ),
-    ),),
+        padding: EdgeInsets.all(10.0),
+        child: ButtonTheme(
+          minWidth: 50.0,
+          height: 50.0,
+          child: RaisedButton(
+              child: Icon(button), color: Colors.red, onPressed: method),
+        ),
+      ),
     );
-    }
+  }
 
-    Widget buttonController(IconData button, method) {
-    return Flexible(
-    flex: 1,
-    child: Container(
-    padding: EdgeInsets.all(10.0),
-    child: ButtonTheme(
-    minWidth: 50.0,
-    height: 50.0,
-    child: RaisedButton(
-    child: Icon(button), color: Colors.red, onPressed: method),
-    ),
-    ),
-
-    );
-    }
-
-    void navigationTapped(int page) {
+  void navigationTapped(int page) {
     _pageController.animateToPage(page,
-    duration: const Duration(milliseconds: 400), curve: Curves.ease);
-    }
+        duration: const Duration(milliseconds: 400), curve: Curves.ease);
+  }
 
-    void onPageChanged(int page) {
+  void onPageChanged(int page) {
     setState(() {
-    this._page = page;
+      this._page = page;
     });
-    }
+  }
 
-    @override
-    void initState() {
+  @override
+  void initState() {
     _pageController = PageController();
     super.initState();
-    }
   }
+}
