@@ -157,6 +157,19 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  bool leftButtonState = false;
+  bool rightButtonState = false;
+  bool upButtonState = false;
+  bool downButtonState = false;
+  bool selectButtonState = false;
+  bool startButtonState = false;
+  bool YButtonState = false;
+  bool AButtonState = false;
+  bool XButtonState = false;
+  bool BButtonState = false;
+
+
+
   final brokerAddressController = TextEditingController();
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
