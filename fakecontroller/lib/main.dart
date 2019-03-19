@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:core';
 import 'package:mqtt_client/mqtt_client.dart' as mqtt;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() => runApp(MyHomePage());
 
@@ -12,6 +13,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+
   PageController _pageController;
 
   String displayedString = "";
@@ -22,7 +25,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void onPressed() {
     setState(() {
-      displayedString = '{movement = "links"}';
+      displayedString = '{"action":"X","movement":"left","dev_id":"ttn_simulator"}';
       final mqtt.MqttClientPayloadBuilder builder =
       mqtt.MqttClientPayloadBuilder();
       builder.addString(displayedString);
@@ -33,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void onPressedLeft() {
     setState(() {
-      displayedString = '{movement = "links"}';
+      displayedString = '{"action":"X","movement":"left","dev_id":"ttn_simulator"}';
       final mqtt.MqttClientPayloadBuilder builder =
       mqtt.MqttClientPayloadBuilder();
       builder.addString(displayedString);
@@ -45,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void onPressedUp() {
     setState(() {
-      displayedString = '{movement = "vooruit"}';
+      displayedString = '{"action":"X","movement":"left","dev_id":"virtual_controller"}';
       final mqtt.MqttClientPayloadBuilder builder =
       mqtt.MqttClientPayloadBuilder();
       builder.addString(displayedString);
@@ -57,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void onPressedDown() {
     setState(() {
-      displayedString = '{movement = "achteruit"}';
+      displayedString = '{"action":"X","movement":"left","dev_id":"virtual_controller"}';
       final mqtt.MqttClientPayloadBuilder builder =
       mqtt.MqttClientPayloadBuilder();
       builder.addString(displayedString);
@@ -69,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void onPressedRight() {
     setState(() {
-      displayedString = '{movement = "rechts"}';
+      displayedString = '{"action":"X","movement":"left","dev_id":"ttn_simulator"}';
       final mqtt.MqttClientPayloadBuilder builder =
       mqtt.MqttClientPayloadBuilder();
       builder.addString(displayedString);
@@ -335,6 +338,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
     IconData connectionStateIcon;
     switch (client?.connectionState) {
       case mqtt.MqttConnectionState.connected:
@@ -456,6 +463,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
       child: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(8.0),
       child: Row(
       children: <Widget>[
       //1e colom
@@ -618,7 +627,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ),
     ],
     ),
-    ),
+    ),),
     );
     }
 
