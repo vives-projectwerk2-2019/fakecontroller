@@ -336,6 +336,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        resizeToAvoidBottomPadding: false,
         appBar: AppBar(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
