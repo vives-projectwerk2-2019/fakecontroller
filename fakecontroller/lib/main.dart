@@ -33,8 +33,8 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
-  String action = "";
-  String movement = "";
+  String action = "idle";
+  String movement = "idle";
   String dev_id = "ttn_simulator";
 
   createJsonSendMqtt() {
@@ -609,6 +609,39 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
+  Widget buttonControllerGesture(IconData button, bool onTap) {
+    return Flexible(
+      flex: 1,
+      child: Container(
+        padding: EdgeInsets.all(10.0),
+        child: ButtonTheme(
+          minWidth: 50.0,
+          height: 50.0,
+          child: RaisedButton(
+              child: Icon(button), color: Colors.red, onPressed: method),
+        ),
+      ),
+    );
+  }
+
+  return GestureDetector(
+  // When the child is tapped, show a snackbar
+  onTap: () {
+  final snackBar = SnackBar(content: Text("Tap"));
+
+  Scaffold.of(context).showSnackBar(snackBar);
+  },
+  // Our Custom Button!
+  child: Container(
+  padding: EdgeInsets.all(12.0),
+  decoration: BoxDecoration(
+  color: Theme.of(context).buttonColor,
+  borderRadius: BorderRadius.circular(8.0),
+  ),
+  child: Text('My Button'),
+  ),
+  );
 
   void navigationTapped(int page) {
     _pageController.animateToPage(page,
