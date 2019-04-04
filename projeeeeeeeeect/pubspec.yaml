@@ -1,5 +1,5 @@
-name: fakecontroller
-description: fakecontroller
+name: projeeeeeeeeect
+description: A new Flutter application.
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -10,21 +10,11 @@ description: fakecontroller
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.0.0-dev.68.0 <3.0.0"
-
-
-#flutter_launcher_icons: "^0.6.1"
-#flutter_icons:
- # image_path: "icon.png"
-  #android: true
-  #ios: true
+  sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  mqtt_client: ^5.4.0
   flutter:
     sdk: flutter
-
-
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -45,10 +35,6 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
-
-  assets:
-    - assets/image/bug-logo.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
