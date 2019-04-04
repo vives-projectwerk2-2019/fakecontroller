@@ -16,6 +16,7 @@ class _MyHomePageState extends State<MyHomePage> {
   PageController _pageController;
   int groupValue;
   String displayedString = "";
+  String displayedStringOld = "";
   String dropdownValueMovementDefault = 'Movement';
   String dropdownValueArmorDefault = 'Armor';
   String dropdownValueHealthDefault = 'Health';
@@ -32,14 +33,15 @@ class _MyHomePageState extends State<MyHomePage> {
     timer?.cancel();
     brokerAddressController.dispose();
     usernameController.dispose();
-    passwordController.dispose();
+    //passwordController.dispose();
     super.dispose();
   }
 
   String action = "idle";
+  final String actionIdle = "idle";
   String movement = "idle";
-  String user = "gio_anil";
-
+  final String movementIdle = "idle";
+  String username = "gio_anil";
 
   bool leftButtonState = false;
   bool rightButtonState = false;
@@ -54,21 +56,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
   createJsonSendMqtt() {
     if (client?.connectionState == mqtt.MqttConnectionState.connected) {
-      setState(() {
-        //if(XButtonState){}
-        displayedString = '{"action":"' +
-            action +
-            '","movement":"' +
-            movement +
-            '","dev_id":"' +
-            user +
-            '"}';
+      displayedString = '{"action":"' +
+          action +
+          '","movement":"' +
+          movement +
+          '","user":"' +
+          username +
+          '"}';
+      if (displayedString != displayedStringOld) {
+        displayedStringOld = displayedString;
+
         final mqtt.MqttClientPayloadBuilder builder =
             mqtt.MqttClientPayloadBuilder();
         builder.addString(displayedString);
         client.publishMessage(
             pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
-      });
+      }
     }
   }
 
@@ -132,15 +135,14 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-
-  final brokerAddressController = TextEditingController();
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
+  final brokerAddressController = TextEditingController(text: 'labict.be');
+  final usernameController = TextEditingController(text: 'Tester');
+  //final passwordController = TextEditingController();
 
   //String broker = 'eu.thethings.network';
   String broker = "";
-  String username = "";
-  String password = "";
+  String usernameBroker = "";
+  String passwordBroker = "";
 
   mqtt.MqttClient client;
   mqtt.MqttConnectionState connectionState;
@@ -159,7 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void addValuesToMqttClient() {
     broker = brokerAddressController.text;
     username = usernameController.text;
-    password = passwordController.text;
+    //password = passwordController.text;
   }
 
   void _connect() async {
@@ -205,7 +207,7 @@ class _MyHomePageState extends State<MyHomePage> {
     /// and clean session, an example of a specific one below.
     final mqtt.MqttConnectMessage connMess = mqtt.MqttConnectMessage()
         .withClientIdentifier('Mqtt_MyClientUniqueId2')
-        .authenticateAs(username, password) // important to connect to broker!!
+        .authenticateAs(usernameBroker, passwordBroker) // important to connect to broker!!
 
         // Must agree with the keep alive set above or not set
         .startClean() // Non persistent session for testing
@@ -398,6 +400,7 @@ class _MyHomePageState extends State<MyHomePage> {
             //keyboardType: TextInputType.number,
           ),
         ),
+        /*
         ListTile(
           leading: const Icon(Icons.more_vert),
           title: TextField(
@@ -408,6 +411,7 @@ class _MyHomePageState extends State<MyHomePage> {
             //keyboardType: TextInputType.number,
           ),
         ),
+        */
         RaisedButton(
           child: Text(
               client?.connectionState == mqtt.MqttConnectionState.connected
@@ -481,14 +485,19 @@ class _MyHomePageState extends State<MyHomePage> {
                             dropdownValueMovementDefault = newValue;
                           });
                         },
-                        items: <String>[dropdownValueMovementDefault, 'Rocket engine', 'Amphibious', 'Harrier']
-                            .map<DropdownMenuItem<String>>((String value) {
+                        items: <String>[
+                          dropdownValueMovementDefault,
+                          'Rocket engine',
+                          'Amphibious',
+                          'Harrier'
+                        ].map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value,style: new TextStyle(
-                              color: Colors.black,
-                              fontSize: 8.0,
-                            )),
+                            child: Text(value,
+                                style: new TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 8.0,
+                                )),
                           );
                         }).toList(),
                       ),
@@ -544,22 +553,25 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Container(
                       width: 50.0,
                       padding: EdgeInsets.all(0.0),
-                      child:DropdownButton<String>(
+                      child: DropdownButton<String>(
                         value: dropdownValueArmorDefault,
                         onChanged: (String newValue) {
                           setState(() {
                             dropdownValueArmorDefault = newValue;
                           });
                         },
-                        items: <String>[dropdownValueArmorDefault, 'Adamantium', 'Gravy shield']
-                            .map<DropdownMenuItem<String>>((String value) {
+                        items: <String>[
+                          dropdownValueArmorDefault,
+                          'Adamantium',
+                          'Gravy shield'
+                        ].map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-
-                            child: Text(value,style: new TextStyle(
-                              color: Colors.black,
-                              fontSize: 8.0,
-                            )),
+                            child: Text(value,
+                                style: new TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 8.0,
+                                )),
                           );
                         }).toList(),
                       ),
@@ -628,14 +640,18 @@ class _MyHomePageState extends State<MyHomePage> {
                             dropdownValueHealthDefault = newValue;
                           });
                         },
-                        items: <String>[dropdownValueHealthDefault, 'Nanobots', 'Structural strengthening']
-                            .map<DropdownMenuItem<String>>((String value) {
+                        items: <String>[
+                          dropdownValueHealthDefault,
+                          'Nanobots',
+                          'Structural strengthening'
+                        ].map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value,style: new TextStyle(
-                              color: Colors.black,
-                              fontSize: 8.0,
-                            )),
+                            child: Text(value,
+                                style: new TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 8.0,
+                                )),
                           );
                         }).toList(),
                       ),
@@ -687,21 +703,29 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Container(
                       padding: EdgeInsets.all(5.0),
                       width: 50.0,
-                      child:DropdownButton<String>(
+                      child: DropdownButton<String>(
                         value: dropdownValueWeaponDefault,
                         onChanged: (String newValue) {
                           setState(() {
                             dropdownValueWeaponDefault = newValue;
                           });
                         },
-                        items: <String>[dropdownValueWeaponDefault, 'Flammenwerpfer', 'Laser', 'Mines','Plasma gun','EMP bomb','Ram']
-                            .map<DropdownMenuItem<String>>((String value) {
+                        items: <String>[
+                          dropdownValueWeaponDefault,
+                          'Flammenwerpfer',
+                          'Laser',
+                          'Mines',
+                          'Plasma gun',
+                          'EMP bomb',
+                          'Ram'
+                        ].map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value,style: new TextStyle(
-                              color: Colors.black,
-                              fontSize: 8.0,
-                            )),
+                            child: Text(value,
+                                style: new TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 8.0,
+                                )),
                           );
                         }).toList(),
                       ),
@@ -736,7 +760,6 @@ class _MyHomePageState extends State<MyHomePage> {
       onTapDown: method,
       onTapUp: (_) {
         movement = "idle";
-
       },
       // Our Custom Button!
       child: Container(
@@ -755,7 +778,6 @@ class _MyHomePageState extends State<MyHomePage> {
       onTapDown: method,
       onTapUp: (_) {
         action = "idle";
-
       },
       // Our Custom Button!
       child: Container(
