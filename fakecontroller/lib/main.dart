@@ -14,13 +14,29 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   PageController _pageController;
-
+int groupValue;
   String displayedString = "";
 
   static const String pubTopic = 'TTN';
 
   //builder.addString('Hello from mqtt_client');
 
+  void dongles(int e){
+
+    setState((){
+      if (e ==1) {
+        groupValue =1;
+      }
+      else if (e ==2){
+        groupValue =2;
+      }  else if (e ==3){
+        groupValue =3;
+      }  else if (e ==4){
+        groupValue =4;
+      }
+
+    });
+  }
   void onPressed() {
     setState(() {
       displayedString =
@@ -156,6 +172,19 @@ class _MyHomePageState extends State<MyHomePage> {
       // counter = counter < 6 ? counter + 1 : 0;
     });
   }
+
+  bool leftButtonState = false;
+  bool rightButtonState = false;
+  bool upButtonState = false;
+  bool downButtonState = false;
+  bool selectButtonState = false;
+  bool startButtonState = false;
+  bool YButtonState = false;
+  bool AButtonState = false;
+  bool XButtonState = false;
+  bool BButtonState = false;
+
+
 
   final brokerAddressController = TextEditingController();
   final usernameController = TextEditingController();
@@ -520,10 +549,18 @@ class _MyHomePageState extends State<MyHomePage> {
                     flex: 1,
                     child: Container(
                       padding: EdgeInsets.all(10.0),
-                      child: Text(" "),
+                      child:(
+                          new Radio(
+
+                            value: null,
+                            //onChanged(int e)=> something(e),
+                            //    activeColor: Colors.blue,
+                            //  value:2,
+                            //groupValue:groupValue,
+                           )
                     ),
                   ),
-                ],
+                  ), ],
               ),
               //4e colom
               Column(
@@ -534,7 +571,17 @@ class _MyHomePageState extends State<MyHomePage> {
                     flex: 1,
                     child: Container(
                       padding: EdgeInsets.all(10.0),
-                      child: Text(""),
+                      child:(
+                      new Radio(
+
+value: null,
+                        //onChanged(int e)=> something(e),
+                      //    activeColor: Colors.blue,
+                      //  value:2,
+                       //groupValue:groupValue,
+                      )
+
+                      ),
                     ),
                   ),
                   Flexible(
@@ -556,7 +603,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     flex: 1,
                     child: Container(
                       padding: EdgeInsets.all(10.0),
-                      child: Text(""),
+                      child:  new Radio(
+
+                        value: null,
+                     //   onChanged(int e)=> something(e),
+                            activeColor: Colors.blue,
+                      //    value:2,
+                        groupValue:groupValue,
+                      )
                     ),
                   ),
                   Flexible(
@@ -577,7 +631,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     flex: 1,
                     child: Container(
                       padding: EdgeInsets.all(10.0),
-                      child: Text(""),
+                      child:  new Radio(
+
+                        value: null,
+                        //onChanged(int e)=> something(e),
+                        //    activeColor: Colors.blue,
+                        //  value:2,
+                        //groupValue:groupValue,
+                      )
                     ),
                   ),
                   buttonController(Icons.arrow_left, onPressedMidButtonX),
@@ -611,7 +672,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     flex: 1,
                     child: Container(
                       padding: EdgeInsets.all(10.0),
-                      child: Text(""),
+                      child:  new Radio(
+
+                        value: null,
+                        //onChanged(int e)=> something(e),
+                        //    activeColor: Colors.blue,
+                        //  value:2,
+                        //groupValue:groupValue,
+                      )
                     ),
                   ),
                   buttonController(Icons.arrow_right, onPressed10),
