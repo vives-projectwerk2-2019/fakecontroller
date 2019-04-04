@@ -14,7 +14,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   PageController _pageController;
-int groupValue;
+  int groupValue;
   String displayedString = "";
   String dropdownValue = 'One';
   static const String pubTopic = 'TTN';
@@ -35,89 +35,8 @@ int groupValue;
 
   String action = "idle";
   String movement = "idle";
-  String dev_id = "ttn_simulator";
+  String user = "gio_anil";
 
-  createJsonSendMqtt() {
-    if (client?.connectionState == mqtt.MqttConnectionState.connected) {
-      setState(() {
-        displayedString = '{"action":"' +
-            action +
-            '","movement":"' +
-            movement +
-            '","dev_id":"' +
-            dev_id +
-            '"}';
-        final mqtt.MqttClientPayloadBuilder builder =
-            mqtt.MqttClientPayloadBuilder();
-        builder.addString(displayedString);
-        client.publishMessage(
-            pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
-
-        action = "";
-        movement = "";
-      });
-    }
-  }
-
-  void onPressedLeft() {
-    setState(() {
-      movement = "left";
-    });
-  }
-
-  void onPressedUp() {
-    setState(() {
-      movement = "up";
-    });
-  }
-
-  void onPressedDown() {
-    setState(() {
-      movement = "down";
-    });
-  }
-
-  void onPressedRight() {
-    setState(() {
-      movement = "right";
-    });
-  }
-
-  void onPressedMidButtonA() {
-    setState(() {
-      action = "A";
-    });
-  }
-
-  void onPressedMidButtonB() {
-    setState(() {
-      action = "B";
-    });
-  }
-
-  void onPressedMidButtonX() {
-    setState(() {
-      action = "B";
-    });
-  }
-
-  void onPressed8() {
-    setState(() {
-      movement = "8";
-    });
-  }
-
-  void onPressed9() {
-    setState(() {
-      movement = "9";
-    });
-  }
-
-  void onPressed10() {
-    setState(() {
-      movement = "10";
-    });
-  }
 
   bool leftButtonState = false;
   bool rightButtonState = false;
@@ -129,6 +48,87 @@ int groupValue;
   bool AButtonState = false;
   bool XButtonState = false;
   bool BButtonState = false;
+
+  createJsonSendMqtt() {
+    if (client?.connectionState == mqtt.MqttConnectionState.connected) {
+      setState(() {
+        //if(XButtonState){}
+        displayedString = '{"action":"' +
+            action +
+            '","movement":"' +
+            movement +
+            '","dev_id":"' +
+            user +
+            '"}';
+        final mqtt.MqttClientPayloadBuilder builder =
+            mqtt.MqttClientPayloadBuilder();
+        builder.addString(displayedString);
+        client.publishMessage(
+            pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
+      });
+    }
+  }
+
+  void onPressedLeft(_) {
+    setState(() {
+      movement = "left";
+    });
+  }
+
+  void onPressedUp(_) {
+    setState(() {
+      movement = "up";
+    });
+  }
+
+  void onPressedDown(_) {
+    setState(() {
+      movement = "down";
+    });
+  }
+
+  void onPressedRight(_) {
+    setState(() {
+      movement = "right";
+    });
+  }
+
+  void actionSelect(_) {
+    setState(() {
+      action = "Select";
+    });
+  }
+
+  void actionStart(_) {
+    setState(() {
+      action = "start";
+    });
+  }
+
+  void actionY(_) {
+    setState(() {
+      action = "Y";
+    });
+  }
+
+  void actionX(_) {
+    setState(() {
+      action = "X";
+    });
+  }
+
+  void actionB(_) {
+    setState(() {
+      action = "B";
+    });
+  }
+
+  void ActionA(_) {
+    setState(() {
+      action = "A";
+    });
+  }
+
 
   final brokerAddressController = TextEditingController();
   final usernameController = TextEditingController();
@@ -450,7 +450,7 @@ int groupValue;
                       child: Text(" "),
                     ),
                   ),
-                  buttonController(Icons.arrow_left, onPressedLeft),
+                  buttonControllerMove(Icons.arrow_left, onPressedLeft),
                   Flexible(
                     flex: 1,
                     child: Container(
@@ -465,7 +465,6 @@ int groupValue;
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-
                   Flexible(
                     flex: 1,
                     child: Container(
@@ -483,21 +482,19 @@ int groupValue;
                             value: value,
                             child: Text(value),
                           );
-                        })
-                            .toList(),
+                        }).toList(),
                       ),
                     ),
-                  ), buttonController(Icons.arrow_drop_up, onPressedUp),
-
+                  ),
+                  buttonControllerMove(Icons.arrow_drop_up, onPressedUp),
                   Flexible(
                     flex: 1,
                     child: Container(
                       child: Text(""),
                       padding: EdgeInsets.only(top: 20.0),
-
                     ),
                   ),
-                  buttonController(Icons.arrow_drop_down, onPressedDown),
+                  buttonControllerMove(Icons.arrow_drop_down, onPressedDown),
                 ],
               ),
               //3e colom
@@ -515,18 +512,19 @@ int groupValue;
                     flex: 1,
                     child: Container(
                       padding: EdgeInsets.all(10.0),
-                      child:Text(""),
-                      ),
+                      child: Text(""),
                     ),
-
-                  buttonController(Icons.arrow_right, onPressedRight),
+                  ),
+                  buttonControllerMove(Icons.arrow_right, onPressedRight),
                   Flexible(
                     flex: 1,
                     child: Container(
                       padding: EdgeInsets.all(10.0),
-                      child:Text(""),
+                      child: Text(""),
+                    ),
                   ),
-                  ), ], ),
+                ],
+              ),
 
               //4e colom
               Column(
@@ -537,7 +535,7 @@ int groupValue;
                     flex: 1,
                     child: Container(
                       padding: EdgeInsets.all(0.0),
-                      child:DropdownButton<String>(
+                      child: DropdownButton<String>(
                         value: dropdownValue,
                         onChanged: (String newValue) {
                           setState(() {
@@ -550,8 +548,7 @@ int groupValue;
                             value: value,
                             child: Text(value),
                           );
-                        })
-                            .toList(),
+                        }).toList(),
                       ),
                     ),
                   ),
@@ -559,11 +556,9 @@ int groupValue;
                     flex: 1,
                     child: Container(
                       padding: EdgeInsets.all(45.0),
-                      child:Text(""),
-
-                      ),
+                      child: Text(""),
                     ),
-
+                  ),
                   Flexible(
                     flex: 1,
                     child: Container(
@@ -571,9 +566,9 @@ int groupValue;
                       padding: EdgeInsets.all(10.0),
                     ),
                   ),
-                  buttonController(Icons.adjust, onPressedMidButtonA),
-                ],),
-
+                  buttonControllerAction(Icons.adjust, actionSelect),
+                ],
+              ),
 
               //5e kolom
               Column(
@@ -600,7 +595,7 @@ int groupValue;
                       child: Text(""),
                     ),
                   ),
-                  buttonController(Icons.adjust, onPressedMidButtonB),
+                  buttonControllerAction(Icons.adjust, actionStart),
                 ],
               ),
               //6e colom
@@ -625,8 +620,7 @@ int groupValue;
                             value: value,
                             child: Text(value),
                           );
-                        })
-                            .toList(),
+                        }).toList(),
                       ),
                     ),
                   ),
@@ -637,7 +631,7 @@ int groupValue;
                       child: Text(""),
                     ),
                   ),
-                  buttonController(Icons.arrow_left, onPressedMidButtonX),
+                  buttonControllerAction(Icons.arrow_left, actionY),
                   Flexible(
                     flex: 1,
                     child: Container(
@@ -659,12 +653,12 @@ int groupValue;
                       child: Text(" "),
                     ),
                   ),
-                  buttonController(Icons.arrow_drop_up, onPressed8),
+                  buttonControllerAction(Icons.arrow_drop_up, actionX),
                   Container(
                     padding: EdgeInsets.all(10.0),
                     child: Text(""),
                   ),
-                  buttonController(Icons.arrow_drop_down, onPressed9),
+                  buttonControllerAction(Icons.arrow_drop_down, actionB),
                 ],
               ),
 //8e colom
@@ -675,7 +669,7 @@ int groupValue;
                     flex: 1,
                     child: Container(
                       padding: EdgeInsets.all(5.0),
-                      child:DropdownButton<String>(
+                      child: DropdownButton<String>(
                         value: dropdownValue,
                         onChanged: (String newValue) {
                           setState(() {
@@ -688,8 +682,7 @@ int groupValue;
                             value: value,
                             child: Text(value),
                           );
-                        })
-                            .toList(),
+                        }).toList(),
                       ),
                     ),
                   ),
@@ -697,10 +690,10 @@ int groupValue;
                     flex: 1,
                     child: Container(
                       padding: EdgeInsets.all(30.0),
-                      child:  Text(""),
+                      child: Text(""),
                     ),
                   ),
-                  buttonController(Icons.arrow_right, onPressed10),
+                  buttonControllerAction(Icons.arrow_right, ActionA),
                   Flexible(
                     flex: 1,
                     child: Container(
@@ -717,53 +710,43 @@ int groupValue;
     );
   }
 
-  Widget buttonController(IconData button, method) {
-    return Flexible(
-      flex: 1,
+  Widget buttonControllerMove(IconData button, method) {
+    return GestureDetector(
+      onTapDown: method,
+      onTapUp: (_) {
+        movement = "idle";
+
+      },
+      // Our Custom Button!
       child: Container(
         padding: EdgeInsets.all(10.0),
         child: ButtonTheme(
           minWidth: 50.0,
           height: 50.0,
-          child: RaisedButton(
-              child: Icon(button), color: Colors.red, onPressed: method),
+          child: RaisedButton(child: Icon(button), color: Colors.red),
         ),
       ),
     );
   }
 
-  Widget buttonControllerGesture(IconData button, bool onTap) {
-    return Flexible(
-      flex: 1,
+  Widget buttonControllerAction(IconData button, method) {
+    return GestureDetector(
+      onTapDown: method,
+      onTapUp: (_) {
+        action = "idle";
+
+      },
+      // Our Custom Button!
       child: Container(
         padding: EdgeInsets.all(10.0),
         child: ButtonTheme(
           minWidth: 50.0,
           height: 50.0,
-          child: RaisedButton(
-              child: Icon(button), color: Colors.red, onPressed: method),
+          child: RaisedButton(child: Icon(button), color: Colors.red),
         ),
       ),
     );
   }
-
-  return GestureDetector(
-  // When the child is tapped, show a snackbar
-  onTap: () {
-  final snackBar = SnackBar(content: Text("Tap"));
-
-  Scaffold.of(context).showSnackBar(snackBar);
-  },
-  // Our Custom Button!
-  child: Container(
-  padding: EdgeInsets.all(12.0),
-  decoration: BoxDecoration(
-  color: Theme.of(context).buttonColor,
-  borderRadius: BorderRadius.circular(8.0),
-  ),
-  child: Text('My Button'),
-  ),
-  );
 
   void navigationTapped(int page) {
     _pageController.animateToPage(page,
