@@ -21,155 +21,101 @@ int groupValue;
 
   //builder.addString('Hello from mqtt_client');
 
-  void dongles(int e){
+  Timer timer;
 
-    setState((){
-      if (e ==1) {
-        groupValue =1;
-      }
-      else if (e ==2){
-        groupValue =2;
-      }  else if (e ==3){
-        groupValue =3;
-      }  else if (e ==4){
-        groupValue =4;
-      }
-
-    });
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is disposed
+    timer?.cancel();
+    brokerAddressController.dispose();
+    usernameController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
-  void onPressed() {
-    setState(() {
-      displayedString =
-          '{"action":"X","movement":"left","dev_id":"ttn_simulator"}';
-      final mqtt.MqttClientPayloadBuilder builder =
-          mqtt.MqttClientPayloadBuilder();
-      builder.addString(displayedString);
-      client.publishMessage(
-          pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
-    });
+
+  String action = "";
+  String movement = "";
+  String dev_id = "ttn_simulator";
+
+  createJsonSendMqtt() {
+    if (client?.connectionState == mqtt.MqttConnectionState.connected) {
+      setState(() {
+        displayedString = '{"action":"' +
+            action +
+            '","movement":"' +
+            movement +
+            '","dev_id":"' +
+            dev_id +
+            '"}';
+        final mqtt.MqttClientPayloadBuilder builder =
+            mqtt.MqttClientPayloadBuilder();
+        builder.addString(displayedString);
+        client.publishMessage(
+            pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
+
+        action = "";
+        movement = "";
+      });
+    }
   }
 
   void onPressedLeft() {
     setState(() {
-      displayedString =
-          '{"action":"X","movement":"left","dev_id":"ttn_simulator"}';
-      final mqtt.MqttClientPayloadBuilder builder =
-          mqtt.MqttClientPayloadBuilder();
-      builder.addString(displayedString);
-      client.publishMessage(
-          pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
-      //  counter = counter < 6 ? counter + 1 : 0;
+      movement = "left";
     });
   }
 
   void onPressedUp() {
     setState(() {
-      displayedString =
-          '{"action":"X","movement":"left","dev_id":"virtual_controller"}';
-      final mqtt.MqttClientPayloadBuilder builder =
-          mqtt.MqttClientPayloadBuilder();
-      builder.addString(displayedString);
-      client.publishMessage(
-          pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
-      //   counter = counter < 6 ? counter + 1 : 0;
+      movement = "up";
     });
   }
 
   void onPressedDown() {
     setState(() {
-      displayedString =
-          '{"action":"X","movement":"left","dev_id":"virtual_controller"}';
-      final mqtt.MqttClientPayloadBuilder builder =
-          mqtt.MqttClientPayloadBuilder();
-      builder.addString(displayedString);
-      client.publishMessage(
-          pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
-      //  counter = counter < 6 ? counter + 1 : 0;
+      movement = "down";
     });
   }
 
   void onPressedRight() {
     setState(() {
-      displayedString =
-          '{"action":"X","movement":"left","dev_id":"ttn_simulator"}';
-      final mqtt.MqttClientPayloadBuilder builder =
-          mqtt.MqttClientPayloadBuilder();
-      builder.addString(displayedString);
-      client.publishMessage(
-          pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
-      // counter = counter < 6 ? counter + 1 : 0;
+      movement = "right";
     });
   }
 
   void onPressedMidButtonA() {
     setState(() {
-      displayedString = '{action = "A"}';
-      final mqtt.MqttClientPayloadBuilder builder =
-          mqtt.MqttClientPayloadBuilder();
-      builder.addString(displayedString);
-      client.publishMessage(
-          pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
-      // counter = counter < 6 ? counter + 1 : 0;
+      action = "A";
     });
   }
 
   void onPressedMidButtonB() {
     setState(() {
-      displayedString = '{action = "B"}';
-      final mqtt.MqttClientPayloadBuilder builder =
-          mqtt.MqttClientPayloadBuilder();
-      builder.addString(displayedString);
-      client.publishMessage(
-          pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
-      // counter = counter < 6 ? counter + 1 : 0;
+      action = "B";
     });
   }
 
   void onPressedMidButtonX() {
     setState(() {
-      displayedString = '{action = "X"}';
-      final mqtt.MqttClientPayloadBuilder builder =
-          mqtt.MqttClientPayloadBuilder();
-      builder.addString(displayedString);
-      client.publishMessage(
-          pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
-      // counter = counter < 6 ? counter + 1 : 0;
+      action = "B";
     });
   }
 
   void onPressed8() {
     setState(() {
-      displayedString = "I will live, u will die";
-      final mqtt.MqttClientPayloadBuilder builder =
-          mqtt.MqttClientPayloadBuilder();
-      builder.addString(displayedString);
-      client.publishMessage(
-          pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
-      // counter = counter < 6 ? counter + 1 : 0;
+      movement = "8";
     });
   }
 
   void onPressed9() {
     setState(() {
-      displayedString = "I will live, u will die";
-      final mqtt.MqttClientPayloadBuilder builder =
-          mqtt.MqttClientPayloadBuilder();
-      builder.addString(displayedString);
-      client.publishMessage(
-          pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
-      // counter = counter < 6 ? counter + 1 : 0;
+      movement = "9";
     });
   }
 
   void onPressed10() {
     setState(() {
-      displayedString = "I will live, u will die";
-      final mqtt.MqttClientPayloadBuilder builder =
-          mqtt.MqttClientPayloadBuilder();
-      builder.addString(displayedString);
-      client.publishMessage(
-          pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
-      // counter = counter < 6 ? counter + 1 : 0;
+      movement = "10";
     });
   }
 
@@ -184,20 +130,9 @@ int groupValue;
   bool XButtonState = false;
   bool BButtonState = false;
 
-
-
   final brokerAddressController = TextEditingController();
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
-
-  @override
-  void dispose() {
-    // Clean up the controller when the Widget is disposed
-    brokerAddressController.dispose();
-    usernameController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
 
   //String broker = 'eu.thethings.network';
   String broker = "";
@@ -729,5 +664,7 @@ value: null,
   void initState() {
     _pageController = PageController();
     super.initState();
+    timer =
+        Timer.periodic(Duration(seconds: 3), (Timer t) => createJsonSendMqtt());
   }
 }
