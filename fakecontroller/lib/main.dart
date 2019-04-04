@@ -16,7 +16,10 @@ class _MyHomePageState extends State<MyHomePage> {
   PageController _pageController;
 int groupValue;
   String displayedString = "";
-  String dropdownValue = 'One';
+  String dropdownValueMovementDefault = 'Movement';
+  String dropdownValueArmorDefault = 'Armor';
+  String dropdownValueHealthDefault = 'Health';
+  String dropdownValueWeaponDefault = 'Weapon';
   static const String pubTopic = 'TTN';
 
   //builder.addString('Hello from mqtt_client');
@@ -469,19 +472,23 @@ int groupValue;
                   Flexible(
                     flex: 1,
                     child: Container(
+                      width: 50.0,
                       padding: EdgeInsets.only(bottom: 25.0),
                       child: DropdownButton<String>(
-                        value: dropdownValue,
+                        value: dropdownValueMovementDefault,
                         onChanged: (String newValue) {
                           setState(() {
-                            dropdownValue = newValue;
+                            dropdownValueMovementDefault = newValue;
                           });
                         },
-                        items: <String>['One', 'Two', 'Free', 'Four']
+                        items: <String>[dropdownValueMovementDefault, 'Rocket engine', 'Amphibious', 'Harrier']
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value),
+                            child: Text(value,style: new TextStyle(
+                              color: Colors.black,
+                              fontSize: 8.0,
+                            )),
                           );
                         })
                             .toList(),
@@ -536,19 +543,24 @@ int groupValue;
                   Flexible(
                     flex: 1,
                     child: Container(
+                      width: 50.0,
                       padding: EdgeInsets.all(0.0),
                       child:DropdownButton<String>(
-                        value: dropdownValue,
+                        value: dropdownValueArmorDefault,
                         onChanged: (String newValue) {
                           setState(() {
-                            dropdownValue = newValue;
+                            dropdownValueArmorDefault = newValue;
                           });
                         },
-                        items: <String>['One', 'Two', 'Free', 'Four']
+                        items: <String>[dropdownValueArmorDefault, 'Adamantium', 'Gravy shield']
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value),
+
+                            child: Text(value,style: new TextStyle(
+                              color: Colors.black,
+                              fontSize: 8.0,
+                            )),
                           );
                         })
                             .toList(),
@@ -612,18 +624,22 @@ int groupValue;
                     flex: 1,
                     child: Container(
                       padding: EdgeInsets.all(5.0),
+                      width: 50.0,
                       child: DropdownButton<String>(
-                        value: dropdownValue,
+                        value: dropdownValueHealthDefault,
                         onChanged: (String newValue) {
                           setState(() {
-                            dropdownValue = newValue;
+                            dropdownValueHealthDefault = newValue;
                           });
                         },
-                        items: <String>['One', 'Two', 'Free', 'Four']
+                        items: <String>[dropdownValueHealthDefault, 'Nanobots', 'Structural strengthening']
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value),
+                            child: Text(value,style: new TextStyle(
+                              color: Colors.black,
+                              fontSize: 8.0,
+                            )),
                           );
                         })
                             .toList(),
@@ -675,18 +691,22 @@ int groupValue;
                     flex: 1,
                     child: Container(
                       padding: EdgeInsets.all(5.0),
+                      width: 50.0,
                       child:DropdownButton<String>(
-                        value: dropdownValue,
+                        value: dropdownValueWeaponDefault,
                         onChanged: (String newValue) {
                           setState(() {
-                            dropdownValue = newValue;
+                            dropdownValueWeaponDefault = newValue;
                           });
                         },
-                        items: <String>['One', 'Two', 'Free', 'Four']
+                        items: <String>[dropdownValueWeaponDefault, 'Flammenwerpfer', 'Laser', 'Mines','Plasma gun','EMP bomb','Ram']
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value),
+                            child: Text(value,style: new TextStyle(
+                              color: Colors.black,
+                              fontSize: 8.0,
+                            )),
                           );
                         })
                             .toList(),
