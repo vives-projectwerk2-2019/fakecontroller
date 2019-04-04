@@ -16,7 +16,7 @@ class _MyHomePageState extends State<MyHomePage> {
   PageController _pageController;
 int groupValue;
   String displayedString = "";
-
+  String dropdownValue = 'One';
   static const String pubTopic = 'TTN';
 
   //builder.addString('Hello from mqtt_client');
@@ -439,7 +439,14 @@ int groupValue;
                   Flexible(
                     flex: 1,
                     child: Container(
-                      padding: EdgeInsets.all(5.0),
+                      padding: EdgeInsets.all(30.0),
+                      child: Text(""),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      padding: EdgeInsets.all(15.0),
                       child: Text(" "),
                     ),
                   ),
@@ -458,11 +465,36 @@ int groupValue;
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  buttonController(Icons.arrow_drop_up, onPressedUp),
+
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      padding: EdgeInsets.only(bottom: 25.0),
+                      child: DropdownButton<String>(
+                        value: dropdownValue,
+                        onChanged: (String newValue) {
+                          setState(() {
+                            dropdownValue = newValue;
+                          });
+                        },
+                        items: <String>['One', 'Two', 'Free', 'Four']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        })
+                            .toList(),
+                      ),
+                    ),
+                  ), buttonController(Icons.arrow_drop_up, onPressedUp),
+
                   Flexible(
                     flex: 1,
                     child: Container(
                       child: Text(""),
+                      padding: EdgeInsets.only(top: 20.0),
+
                     ),
                   ),
                   buttonController(Icons.arrow_drop_down, onPressedDown),
@@ -475,28 +507,27 @@ int groupValue;
                   Flexible(
                     flex: 1,
                     child: Container(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.all(30.0),
                       child: Text(""),
                     ),
                   ),
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      padding: EdgeInsets.all(10.0),
+                      child:Text(""),
+                      ),
+                    ),
+
                   buttonController(Icons.arrow_right, onPressedRight),
                   Flexible(
                     flex: 1,
                     child: Container(
                       padding: EdgeInsets.all(10.0),
-                      child:(
-                          new Radio(
-
-                            value: null,
-                            //onChanged(int e)=> something(e),
-                            //    activeColor: Colors.blue,
-                            //  value:2,
-                            //groupValue:groupValue,
-                           )
-                    ),
+                      child:Text(""),
                   ),
-                  ), ],
-              ),
+                  ), ], ),
+
               //4e colom
               Column(
                 mainAxisSize: MainAxisSize.min,
@@ -505,29 +536,44 @@ int groupValue;
                   Flexible(
                     flex: 1,
                     child: Container(
-                      padding: EdgeInsets.all(10.0),
-                      child:(
-                      new Radio(
-
-value: null,
-                        //onChanged(int e)=> something(e),
-                      //    activeColor: Colors.blue,
-                      //  value:2,
-                       //groupValue:groupValue,
-                      )
-
+                      padding: EdgeInsets.all(0.0),
+                      child:DropdownButton<String>(
+                        value: dropdownValue,
+                        onChanged: (String newValue) {
+                          setState(() {
+                            dropdownValue = newValue;
+                          });
+                        },
+                        items: <String>['One', 'Two', 'Free', 'Four']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        })
+                            .toList(),
                       ),
                     ),
                   ),
                   Flexible(
                     flex: 1,
                     child: Container(
+                      padding: EdgeInsets.all(45.0),
+                      child:Text(""),
+
+                      ),
+                    ),
+
+                  Flexible(
+                    flex: 1,
+                    child: Container(
                       child: Text(""),
+                      padding: EdgeInsets.all(10.0),
                     ),
                   ),
                   buttonController(Icons.adjust, onPressedMidButtonA),
-                ],
-              ),
+                ],),
+
 
               //5e kolom
               Column(
@@ -537,15 +583,15 @@ value: null,
                   Flexible(
                     flex: 1,
                     child: Container(
-                      padding: EdgeInsets.all(10.0),
-                      child:  new Radio(
-
-                        value: null,
-                     //   onChanged(int e)=> something(e),
-                            activeColor: Colors.blue,
-                      //    value:2,
-                        groupValue:groupValue,
-                      )
+                      padding: EdgeInsets.all(20.0),
+                      child: Text(""),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      padding: EdgeInsets.all(50.0),
+                      child: Text(""),
                     ),
                   ),
                   Flexible(
@@ -565,22 +611,37 @@ value: null,
                   Flexible(
                     flex: 1,
                     child: Container(
-                      padding: EdgeInsets.all(10.0),
-                      child:  new Radio(
-
-                        value: null,
-                        //onChanged(int e)=> something(e),
-                        //    activeColor: Colors.blue,
-                        //  value:2,
-                        //groupValue:groupValue,
-                      )
+                      padding: EdgeInsets.all(5.0),
+                      child: DropdownButton<String>(
+                        value: dropdownValue,
+                        onChanged: (String newValue) {
+                          setState(() {
+                            dropdownValue = newValue;
+                          });
+                        },
+                        items: <String>['One', 'Two', 'Free', 'Four']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        })
+                            .toList(),
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      padding: EdgeInsets.all(30.0),
+                      child: Text(""),
                     ),
                   ),
                   buttonController(Icons.arrow_left, onPressedMidButtonX),
                   Flexible(
                     flex: 1,
                     child: Container(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.all(30.0),
                       child: Text(""),
                     ),
                   ),
@@ -591,6 +652,13 @@ value: null,
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      padding: EdgeInsets.all(25.0),
+                      child: Text(" "),
+                    ),
+                  ),
                   buttonController(Icons.arrow_drop_up, onPressed8),
                   Container(
                     padding: EdgeInsets.all(10.0),
@@ -606,22 +674,37 @@ value: null,
                   Flexible(
                     flex: 1,
                     child: Container(
-                      padding: EdgeInsets.all(10.0),
-                      child:  new Radio(
-
-                        value: null,
-                        //onChanged(int e)=> something(e),
-                        //    activeColor: Colors.blue,
-                        //  value:2,
-                        //groupValue:groupValue,
-                      )
+                      padding: EdgeInsets.all(5.0),
+                      child:DropdownButton<String>(
+                        value: dropdownValue,
+                        onChanged: (String newValue) {
+                          setState(() {
+                            dropdownValue = newValue;
+                          });
+                        },
+                        items: <String>['One', 'Two', 'Free', 'Four']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        })
+                            .toList(),
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      padding: EdgeInsets.all(30.0),
+                      child:  Text(""),
                     ),
                   ),
                   buttonController(Icons.arrow_right, onPressed10),
                   Flexible(
                     flex: 1,
                     child: Container(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.all(30.0),
                       child: Text(""),
                     ),
                   ),
