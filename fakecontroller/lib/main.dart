@@ -374,7 +374,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
-  }
+}
 
   Column _buildAddBrokerPage() {
     final _formKey = GlobalKey<FormState>();
