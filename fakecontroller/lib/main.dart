@@ -470,15 +470,17 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               //2e colom
               Column(
+                //crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Flexible(
                     flex: 1,
                     child: Container(
-                      width: 50.0,
+                      width: 73.0,
                       padding: EdgeInsets.only(bottom: 25.0),
                       child: DropdownButton<String>(
+                        isExpanded: true,
                         value: dropdownValueMovementDefault,
                         onChanged: (String newValue) {
                           setState(() {
@@ -496,7 +498,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: Text(value,
                                 style: new TextStyle(
                                   color: Colors.black,
-                                  fontSize: 8.0,
+                                  fontSize: 10.0,
                                 )),
                           );
                         }).toList(),
@@ -551,9 +553,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   Flexible(
                     flex: 1,
                     child: Container(
-                      width: 50.0,
+                      width: 73.0,
                       padding: EdgeInsets.all(0.0),
                       child: DropdownButton<String>(
+                        isExpanded: true,
                         value: dropdownValueArmorDefault,
                         onChanged: (String newValue) {
                           setState(() {
@@ -570,7 +573,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: Text(value,
                                 style: new TextStyle(
                                   color: Colors.black,
-                                  fontSize: 8.0,
+                                  fontSize: 10.0,
                                 )),
                           );
                         }).toList(),
@@ -632,8 +635,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     flex: 1,
                     child: Container(
                       padding: EdgeInsets.all(5.0),
-                      width: 50.0,
+                      width: 73.0,
                       child: DropdownButton<String>(
+                        isExpanded: true,
                         value: dropdownValueHealthDefault,
                         onChanged: (String newValue) {
                           setState(() {
@@ -650,7 +654,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: Text(value,
                                 style: new TextStyle(
                                   color: Colors.black,
-                                  fontSize: 8.0,
+                                  fontSize: 10.0,
                                 )),
                           );
                         }).toList(),
@@ -702,8 +706,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     flex: 1,
                     child: Container(
                       padding: EdgeInsets.all(5.0),
-                      width: 50.0,
+                      width: 73.0,
                       child: DropdownButton<String>(
+                        isExpanded: true,
                         value: dropdownValueWeaponDefault,
                         onChanged: (String newValue) {
                           setState(() {
@@ -724,7 +729,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: Text(value,
                                 style: new TextStyle(
                                   color: Colors.black,
-                                  fontSize: 8.0,
+                                  fontSize: 10.0,
                                 )),
                           );
                         }).toList(),
