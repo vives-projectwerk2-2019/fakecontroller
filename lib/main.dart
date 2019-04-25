@@ -15,6 +15,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   PageController _pageController;
   int groupValue;
+  double opacityValue = 0;
   String displayedString = "";
   String displayedStringOld = "";
   String dropdownValueMovementDefault = 'Movement';
@@ -207,7 +208,8 @@ class _MyHomePageState extends State<MyHomePage> {
     /// and clean session, an example of a specific one below.
     final mqtt.MqttConnectMessage connMess = mqtt.MqttConnectMessage()
         .withClientIdentifier('Mqtt_MyClientUniqueId2')
-        .authenticateAs(usernameBroker, passwordBroker) // important to connect to broker!!
+        .authenticateAs(
+            usernameBroker, passwordBroker) // important to connect to broker!!
 
         // Must agree with the keep alive set above or not set
         .startClean() // Non persistent session for testing
@@ -338,21 +340,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        resizeToAvoidBottomPadding: false,
-        appBar: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text("BUG Controller"),
-              SizedBox(
-                width: 8.0,
-              ),
-              Icon(connectionStateIcon),
-              SizedBox(height: 8.0),
-              SizedBox(width: 8.0),
-            ],
-          ),
-        ),
+        ///resizeToAvoidBottomPadding: false,
+        ///
+        //
+        /*
         bottomNavigationBar: BottomNavigationBar(
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -364,6 +355,7 @@ class _MyHomePageState extends State<MyHomePage> {
           fixedColor: Colors.blue,
           onTap: navigationTapped,
         ),
+        */
         body: PageView(
           controller: _pageController,
           onPageChanged: onPageChanged,
@@ -374,19 +366,23 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
-}
+  }
 
   Column _buildAddBrokerPage() {
     final _formKey = GlobalKey<FormState>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        ListTile(
-          leading: const Icon(Icons.location_city),
-          title: TextField(
-            controller: brokerAddressController,
-            decoration: InputDecoration(
-              hintText: "server address broker",
+        Container(
+          padding:
+          EdgeInsets.only(top: 30),
+          child: ListTile(
+            leading: const Icon(Icons.location_city),
+            title: TextField(
+              controller: brokerAddressController,
+              decoration: InputDecoration(
+                hintText: "server address broker",
+              ),
             ),
           ),
         ),
@@ -434,363 +430,272 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Container _buildFakecontrollerPage() {
     return Container(
-      child: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: <Widget>[
-              //1e colom
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      padding: EdgeInsets.all(30.0),
-                      child: Text(""),
-                    ),
-                  ),
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      padding: EdgeInsets.all(15.0),
-                      child: Text(" "),
-                    ),
-                  ),
-                  buttonControllerMove(Icons.arrow_left, onPressedLeft),
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      padding: EdgeInsets.all(10.0),
-                      child: Text(" "),
-                    ),
-                  ),
-                ],
+      child: Stack(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: ExactAssetImage('assets/image/bug-logo-z.png'),
+                fit: BoxFit.cover,
               ),
-              //2e colom
-              Column(
-                //crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
+            ),
+          ),
+          Center(
+            child: SingleChildScrollView(
+              child: Row(
                 children: <Widget>[
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      width: 73.0,
-                      padding: EdgeInsets.only(bottom: 25.0),
-                      child: DropdownButton<String>(
-                        isExpanded: true,
-                        value: dropdownValueMovementDefault,
-                        onChanged: (String newValue) {
-                          setState(() {
-                            dropdownValueMovementDefault = newValue;
-                          });
-                        },
-                        items: <String>[
-                          dropdownValueMovementDefault,
-                          'Rocket engine',
-                          'Amphibious',
-                          'Harrier'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value,
-                                style: new TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 10.0,
-                                )),
-                          );
-                        }).toList(),
+                  //1e colom
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      buttonControllerMove(
+                          Icons.arrow_left, onPressedLeft, 35, 0, 8, 0),
+                    ],
+                  ),
+                  //2e colom
+                  Column(
+                    //crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Flexible(
+                        flex: 1,
+                        child: Container(
+                          width: 80.0,
+                          child: DropdownButton<String>(
+                            isExpanded: true,
+                            value: dropdownValueMovementDefault,
+                            onChanged: (String newValue) {
+                              setState(() {
+                                dropdownValueMovementDefault = newValue;
+                              });
+                            },
+                            items: <String>[
+                              dropdownValueMovementDefault,
+                              'Rocket engine',
+                              'Amphibious',
+                              'Harrier'
+                            ].map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value,
+                                    style: new TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 10.0,
+                                    )),
+                              );
+                            }).toList(),
+                          ),
+                        ),
                       ),
-                    ),
+                      buttonControllerMove(
+                          Icons.arrow_drop_up, onPressedUp, 8, 0, 30, 60),
+                      buttonControllerMove(
+                          Icons.arrow_drop_down, onPressedDown, 8, 0, 0, 70),
+                    ],
                   ),
-                  buttonControllerMove(Icons.arrow_drop_up, onPressedUp),
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      child: Text(""),
-                      padding: EdgeInsets.only(top: 20.0),
-                    ),
+                  //3e colom
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      buttonControllerMove(
+                          Icons.arrow_right, onPressedRight, 0, 0, 8, 0),
+                    ],
                   ),
-                  buttonControllerMove(Icons.arrow_drop_down, onPressedDown),
-                ],
-              ),
-              //3e colom
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      padding: EdgeInsets.all(30.0),
-                      child: Text(""),
-                    ),
-                  ),
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      padding: EdgeInsets.all(10.0),
-                      child: Text(""),
-                    ),
-                  ),
-                  buttonControllerMove(Icons.arrow_right, onPressedRight),
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      padding: EdgeInsets.all(10.0),
-                      child: Text(""),
-                    ),
-                  ),
-                ],
-              ),
 
-              //4e colom
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      width: 73.0,
-                      padding: EdgeInsets.all(0.0),
-                      child: DropdownButton<String>(
-                        isExpanded: true,
-                        value: dropdownValueArmorDefault,
-                        onChanged: (String newValue) {
-                          setState(() {
-                            dropdownValueArmorDefault = newValue;
-                          });
-                        },
-                        items: <String>[
-                          dropdownValueArmorDefault,
-                          'Adamantium',
-                          'Gravy shield'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value,
-                                style: new TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 10.0,
-                                )),
-                          );
-                        }).toList(),
+                  //4e colom
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Flexible(
+                        flex: 1,
+                        child: Container(
+                          width: 73.0,
+                          child: DropdownButton<String>(
+                            isExpanded: true,
+                            value: dropdownValueArmorDefault,
+                            onChanged: (String newValue) {
+                              setState(() {
+                                dropdownValueArmorDefault = newValue;
+                              });
+                            },
+                            items: <String>[
+                              dropdownValueArmorDefault,
+                              'Adamantium',
+                              'Gravy shield'
+                            ].map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value,
+                                    style: new TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 10.0,
+                                    )),
+                              );
+                            }).toList(),
+                          ),
+                        ),
                       ),
-                    ),
+                      buttonControllerAction(
+                          Icons.adjust, actionSelect, 50, 0, 115, 100),
+                    ],
                   ),
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      padding: EdgeInsets.all(45.0),
-                      child: Text(""),
-                    ),
-                  ),
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      child: Text(""),
-                      padding: EdgeInsets.all(10.0),
-                    ),
-                  ),
-                  buttonControllerAction(Icons.adjust, actionSelect),
-                ],
-              ),
 
-              //5e kolom
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      padding: EdgeInsets.all(20.0),
-                      child: Text(""),
-                    ),
+                  //5e kolom
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      buttonControllerAction(
+                          Icons.adjust, actionStart, 40, 0, 115, 55),
+                    ],
                   ),
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      padding: EdgeInsets.all(50.0),
-                      child: Text(""),
-                    ),
-                  ),
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      child: Text(""),
-                    ),
-                  ),
-                  buttonControllerAction(Icons.adjust, actionStart),
-                ],
-              ),
-              //6e colom
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      padding: EdgeInsets.all(5.0),
-                      width: 73.0,
-                      child: DropdownButton<String>(
-                        isExpanded: true,
-                        value: dropdownValueHealthDefault,
-                        onChanged: (String newValue) {
-                          setState(() {
-                            dropdownValueHealthDefault = newValue;
-                          });
-                        },
-                        items: <String>[
-                          dropdownValueHealthDefault,
-                          'Nanobots',
-                          'Structural strengthening'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value,
-                                style: new TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 10.0,
-                                )),
-                          );
-                        }).toList(),
+                  //6e colom
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Flexible(
+                        flex: 1,
+                        child: Container(
+                          width: 73.0,
+                          child: DropdownButton<String>(
+                            isExpanded: true,
+                            value: dropdownValueHealthDefault,
+                            onChanged: (String newValue) {
+                              setState(() {
+                                dropdownValueHealthDefault = newValue;
+                              });
+                            },
+                            items: <String>[
+                              dropdownValueHealthDefault,
+                              'Nanobots',
+                              'Structural strengthening'
+                            ].map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value,
+                                    style: new TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 10.0,
+                                    )),
+                              );
+                            }).toList(),
+                          ),
+                        ),
                       ),
-                    ),
+                      buttonControllerAction(
+                          Icons.arrow_left, actionY, 50, 0, 80, 125),
+                    ],
                   ),
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      padding: EdgeInsets.all(30.0),
-                      child: Text(""),
-                    ),
+                  //7ecolom
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      buttonControllerAction(
+                          Icons.arrow_drop_up, actionX, 10, 0, 5, 0),
+                      buttonControllerAction(
+                          Icons.arrow_drop_down, actionB, 10, 0, 80, 0),
+                    ],
                   ),
-                  buttonControllerAction(Icons.arrow_left, actionY),
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      padding: EdgeInsets.all(30.0),
-                      child: Text(""),
-                    ),
-                  ),
-                ],
-              ),
-              //7ecolom
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      padding: EdgeInsets.all(25.0),
-                      child: Text(" "),
-                    ),
-                  ),
-                  buttonControllerAction(Icons.arrow_drop_up, actionX),
-                  Container(
-                    padding: EdgeInsets.all(10.0),
-                    child: Text(""),
-                  ),
-                  buttonControllerAction(Icons.arrow_drop_down, actionB),
-                ],
-              ),
 //8e colom
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      padding: EdgeInsets.all(5.0),
-                      width: 73.0,
-                      child: DropdownButton<String>(
-                        isExpanded: true,
-                        value: dropdownValueWeaponDefault,
-                        onChanged: (String newValue) {
-                          setState(() {
-                            dropdownValueWeaponDefault = newValue;
-                          });
-                        },
-                        items: <String>[
-                          dropdownValueWeaponDefault,
-                          'Flammenwerpfer',
-                          'Laser',
-                          'Mines',
-                          'Plasma gun',
-                          'EMP bomb',
-                          'Ram'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value,
-                                style: new TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 10.0,
-                                )),
-                          );
-                        }).toList(),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Flexible(
+                        flex: 1,
+                        child: Container(
+                          width: 73.0,
+                          child: DropdownButton<String>(
+                            isExpanded: true,
+                            value: dropdownValueWeaponDefault,
+                            onChanged: (String newValue) {
+                              setState(() {
+                                dropdownValueWeaponDefault = newValue;
+                              });
+                            },
+                            items: <String>[
+                              dropdownValueWeaponDefault,
+                              'Flammenwerpfer',
+                              'Laser',
+                              'Mines',
+                              'Plasma gun',
+                              'EMP bomb',
+                              'Ram'
+                            ].map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value,
+                                    style: new TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 10.0,
+                                    )),
+                              );
+                            }).toList(),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      padding: EdgeInsets.all(30.0),
-                      child: Text(""),
-                    ),
-                  ),
-                  buttonControllerAction(Icons.arrow_right, ActionA),
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      padding: EdgeInsets.all(30.0),
-                      child: Text(""),
-                    ),
+                      buttonControllerAction(
+                          Icons.arrow_right, ActionA, 0, 0, 80, 125),
+                    ],
                   ),
                 ],
               ),
-            ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buttonControllerMove(IconData button, method, double left,
+      double right, double top, double bottom) {
+    return Container(
+      padding:
+          EdgeInsets.only(left: left, right: right, top: top, bottom: bottom),
+      child: Opacity(
+        opacity: opacityValue,
+        child: GestureDetector(
+          onTapDown: method,
+          onTapUp: (_) {
+            movement = "idle";
+          },
+          // Our Custom Button!
+          child: Container(
+            child: ButtonTheme(
+              minWidth: 50.0,
+              height: 50.0,
+              child: RaisedButton(child: Icon(button), color: Colors.red),
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget buttonControllerMove(IconData button, method) {
-    return GestureDetector(
-      onTapDown: method,
-      onTapUp: (_) {
-        movement = "idle";
-      },
-      // Our Custom Button!
-      child: Container(
-        padding: EdgeInsets.all(10.0),
-        child: ButtonTheme(
-          minWidth: 50.0,
-          height: 50.0,
-          child: RaisedButton(child: Icon(button), color: Colors.red),
-        ),
-      ),
-    );
-  }
-
-  Widget buttonControllerAction(IconData button, method) {
-    return GestureDetector(
-      onTapDown: method,
-      onTapUp: (_) {
-        action = "idle";
-      },
-      // Our Custom Button!
-      child: Container(
-        padding: EdgeInsets.all(10.0),
-        child: ButtonTheme(
-          minWidth: 50.0,
-          height: 50.0,
-          child: RaisedButton(child: Icon(button), color: Colors.red),
+  Widget buttonControllerAction(IconData button, method, double left,
+      double right, double top, double bottom) {
+    return Container(
+      padding:
+          EdgeInsets.only(left: left, right: right, top: top, bottom: bottom),
+      child: Opacity(
+        opacity: opacityValue,
+        child: GestureDetector(
+          onTapDown: method,
+          onTapUp: (_) {
+            action = "idle";
+          },
+          // Our Custom Button!
+          child: Container(
+            child: ButtonTheme(
+              minWidth: 50.0,
+              height: 50.0,
+              child: RaisedButton(child: Icon(button), color: Colors.red),
+            ),
+          ),
         ),
       ),
     );
