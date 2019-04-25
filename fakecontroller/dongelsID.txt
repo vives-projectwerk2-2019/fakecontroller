@@ -1,0 +1,14 @@
+"rocketEngine" -> 01a2f560d6df03bb
+"amphibious" -> 0140c29c8357f2ce
+"harrier" -> 0155cf8199f0245b
+"adamantium" -> 016bc4464286f3fb
+"gravyShield" -> 0148eef363dff533
+"nanobots" -> 0164a54798d7d27a
+"structuralStrengthening" -> 0136edcaaf285d1d
+"Flammenwerpfer" -> 011d5ba90ce241e6
+"laser" -> 01a2eb344edc7c5a
+"mines" -> 01d9643e2bf10134
+"plasmaGun" -> 0100548e2b3038f5
+"empBomb" -> 01ff7ab8c2155e57
+"ram" -> 0122e76e424f7c79
+"gatling gun" -> 01f94b5e5d4277b5
