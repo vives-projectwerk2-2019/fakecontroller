@@ -462,7 +462,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Flexible(
                         flex: 1,
                         child: Container(
-                          width: 80.0,
+                          width: 77.0, // 77 because othrise the t wil be on a nieuw line
                           child: DropdownButton<String>(
                             isExpanded: true,
                             value: dropdownValueMovementDefault,
