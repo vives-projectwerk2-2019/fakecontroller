@@ -17,13 +17,10 @@ class _MyHomePageState extends State<MyHomePage> {
   int groupValue;
   double opacityValue = 0;
   String displayedString = "";
+  String displayedString2 = "";
   String displayedStringOld = "";
-  String dropdownValueMovementDefault = 'Movement';
-  String dropdownValueArmorDefault = 'Armor';
-  String dropdownValueHealthDefault = 'Health';
-  String dropdownValueWeaponDefault = 'Weapon';
-  static const String pubTopic = 'TTN';
-
+  static const String pubTopic = 'ttn';
+  static const String pubHardwareTopic = 'hardware';
   //builder.addString('Hello from mqtt_client');
 
   Timer timer;
@@ -54,14 +51,15 @@ class _MyHomePageState extends State<MyHomePage> {
   bool AButtonState = false;
   bool XButtonState = false;
   bool BButtonState = false;
+  bool startApp = true;
 
-  createJsonSendMqtt() {
+  void createJsonSendMqttButton() {
     if (client?.connectionState == mqtt.MqttConnectionState.connected) {
-      displayedString = '{"action":"' +
-          action +
-          '","movement":"' +
+      displayedString = '{"movement":"' +
           movement +
-          '","user":"' +
+          '","action":"' +
+          action +
+          '","dev_id":"' +
           username +
           '"}';
       if (displayedString != displayedStringOld) {
@@ -73,6 +71,134 @@ class _MyHomePageState extends State<MyHomePage> {
         client.publishMessage(
             pubTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
       }
+      if (startApp) {
+        startApp = false;
+        createJsonSendMqttStart();
+      }
+    }
+  }
+
+  String dropdownAddOnValue1 = "Add on";
+  String dropdownAddOnValue2 = "Add on";
+  String dropdownAddOnValue3 = "Add on";
+  String rocketEngineAdd = "01a2f560d6df03bb";
+  String amphibiousAdd = "0140c29c8357f2ce"; //-> 0140c29c8357f2ce
+  String harrierAdd = "0155cf8199f0245b"; //-> 0155cf8199f0245b
+  String adamantiumAdd = "016bc4464286f3fb"; //-> 016bc4464286f3fb
+  String gravyShieldAdd = "0148eef363dff533"; //-> 0148eef363dff533
+  String nanobotsAdd = "0164a54798d7d27a"; //-> 0164a54798d7d27a
+  String structuralStrengtheningAdd = "0136edcaaf285d1d"; //-> 0136edcaaf285d1d
+  String FlammenwerpferAdd = "011d5ba90ce241e6"; //-> 011d5ba90ce241e6
+  String laserAdd = "01a2eb344edc7c5a"; //-> 01a2eb344edc7c5a
+  String minesAdd = "01d9643e2bf10134"; //-> 01d9643e2bf10134
+  String plasmaGunAdd = "0100548e2b3038f5"; //-> 0100548e2b3038f5
+  String empBombAdd = "01ff7ab8c2155e57"; //-> 01ff7ab8c2155e57
+  String ramAdd = "0122e76e424f7c79"; //-> 0122e76e424f7c79
+  String gatlingGunAdd = "01f94b5e5d4277b5"; //-> 01f94b5e5d4277b5
+
+  String idHardware = "0080d0803b102f01";
+  String add_1 = "0";
+  String add_2 = "0";
+  String add_3 = "0";
+
+  void addHascodeAddons(String dropdownAddOnValue, String addOnSelectionToJson) {
+    switch (dropdownAddOnValue) {
+      case "rocketEngine":
+        {
+          addOnSelectionToJson = rocketEngineAdd;
+        }
+        break;
+      case "amphibious":
+        {
+          addOnSelectionToJson = amphibiousAdd;
+        }
+        break;
+      case "harrier":
+        {
+          addOnSelectionToJson = harrierAdd;
+        }
+        break;
+      case "adamantium":
+        {
+          addOnSelectionToJson = adamantiumAdd;        }
+        break;
+      case "gravyShield":
+        {
+          addOnSelectionToJson = gravyShieldAdd;
+        }
+        break;
+      case "nanobots":
+        {
+          addOnSelectionToJson = nanobotsAdd;
+        }
+        break;
+      case "structuralStrengthening":
+        {
+          addOnSelectionToJson = structuralStrengtheningAdd;
+        }
+        break;
+      case "Flammenwerpfer":
+        {
+          addOnSelectionToJson = FlammenwerpferAdd;
+        }
+        break;
+      case "laser":
+        {
+          addOnSelectionToJson = laserAdd;
+        }
+        break;
+      case "mines":
+        {
+          addOnSelectionToJson = minesAdd;
+        }
+        break;
+      case "plasmaGun":
+        {
+          addOnSelectionToJson = plasmaGunAdd;
+        }
+        break;
+      case "empBomb":
+        {
+          addOnSelectionToJson =empBombAdd ;
+        }
+        break;
+      case "ram":
+        {
+          addOnSelectionToJson = ramAdd;
+        }
+        break;
+      case "gatling gun":
+        {
+          addOnSelectionToJson = gatlingGunAdd;
+        }
+        break;
+      default:
+        {
+          addOnSelectionToJson = "invalid";
+        }
+        break;
+    }
+  }
+
+  void createJsonSendMqttStart() {
+    if (client?.connectionState == mqtt.MqttConnectionState.connected) {
+      displayedString2 = '{"id":"' +
+          idHardware +
+          '","add_1":"' +
+          add_1 +
+          '","add_2":"' +
+          add_2 +
+          '","add_3":"' +
+          add_3 +
+          '","dev_id":"' +
+          username +
+          '"}';
+
+      final mqtt.MqttClientPayloadBuilder builder =
+          mqtt.MqttClientPayloadBuilder();
+      builder.addString(displayedString2);
+      client.publishMessage(
+          pubHardwareTopic, mqtt.MqttQos.exactlyOnce, builder.payload);
     }
   }
 
@@ -84,13 +210,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void onPressedUp(_) {
     setState(() {
-      movement = "up";
+      movement = "forward";
     });
   }
 
   void onPressedDown(_) {
     setState(() {
-      movement = "down";
+      movement = "backward";
     });
   }
 
@@ -374,8 +500,7 @@ class _MyHomePageState extends State<MyHomePage> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Container(
-          padding:
-          EdgeInsets.only(top: 30),
+          padding: EdgeInsets.only(top: 30),
           child: ListTile(
             leading: const Icon(Icons.location_city),
             title: TextField(
@@ -418,6 +543,7 @@ class _MyHomePageState extends State<MyHomePage> {
           onPressed: () {
             addValuesToMqttClient();
             if (client?.connectionState == mqtt.MqttConnectionState.connected) {
+              startApp = true;
               _disconnect();
             } else {
               _connect();
@@ -459,10 +585,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+                      /*
                       Flexible(
                         flex: 1,
                         child: Container(
-                          width: 77.0, // 77 because othrise the t wil be on a nieuw line
+                          width:
+                              77.0, // 77 because othrise the t wil be on a nieuw line
                           child: DropdownButton<String>(
                             isExpanded: true,
                             value: dropdownValueMovementDefault,
@@ -489,6 +617,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ),
+                      */
+                      addOnController(dropdownAddOnValue1, add_1, 0, 0, 0, 0),
                       buttonControllerMove(
                           Icons.arrow_drop_up, onPressedUp, 8, 0, 30, 60),
                       buttonControllerMove(
@@ -509,35 +639,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          width: 73.0,
-                          child: DropdownButton<String>(
-                            isExpanded: true,
-                            value: dropdownValueArmorDefault,
-                            onChanged: (String newValue) {
-                              setState(() {
-                                dropdownValueArmorDefault = newValue;
-                              });
-                            },
-                            items: <String>[
-                              dropdownValueArmorDefault,
-                              'Adamantium',
-                              'Gravy shield'
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value,
-                                    style: new TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 10.0,
-                                    )),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ),
                       buttonControllerAction(
                           Icons.adjust, actionSelect, 50, 0, 115, 100),
                     ],
@@ -557,35 +658,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          width: 73.0,
-                          child: DropdownButton<String>(
-                            isExpanded: true,
-                            value: dropdownValueHealthDefault,
-                            onChanged: (String newValue) {
-                              setState(() {
-                                dropdownValueHealthDefault = newValue;
-                              });
-                            },
-                            items: <String>[
-                              dropdownValueHealthDefault,
-                              'Nanobots',
-                              'Structural strengthening'
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value,
-                                    style: new TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 10.0,
-                                    )),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ),
+                      addOnController(dropdownAddOnValue2, add_2, 0, 0, 0, 0),
                       buttonControllerAction(
                           Icons.arrow_left, actionY, 50, 0, 80, 125),
                     ],
@@ -605,39 +678,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          width: 73.0,
-                          child: DropdownButton<String>(
-                            isExpanded: true,
-                            value: dropdownValueWeaponDefault,
-                            onChanged: (String newValue) {
-                              setState(() {
-                                dropdownValueWeaponDefault = newValue;
-                              });
-                            },
-                            items: <String>[
-                              dropdownValueWeaponDefault,
-                              'Flammenwerpfer',
-                              'Laser',
-                              'Mines',
-                              'Plasma gun',
-                              'EMP bomb',
-                              'Ram'
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value,
-                                    style: new TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 10.0,
-                                    )),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ),
+                      addOnController(dropdownAddOnValue3, add_3, 0, 0, 0, 0),
                       buttonControllerAction(
                           Icons.arrow_right, ActionA, 0, 0, 80, 125),
                     ],
@@ -701,6 +742,47 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  Widget addOnController( String dropdownAddOnValue,
+      String addOnSelectionToJson, double left, double right, double top, double bottom) {
+    return Container(
+      width: 77,
+      padding:
+          EdgeInsets.only(left: left, right: right, top: top, bottom: bottom),
+      child: DropdownButton<String>(
+        value: dropdownAddOnValue,
+        onChanged: (String newValue) {
+          setState(() {
+            dropdownAddOnValue = newValue;
+            addHascodeAddons(dropdownAddOnValue, addOnSelectionToJson);
+            createJsonSendMqttStart();
+          });
+        },
+        items: <String>[
+          dropdownAddOnValue,
+          "rocketEngine",
+          "amphibious",
+          "harrier",
+          "adamantium",
+          "gravyShield",
+          "nanobots",
+          "structuralStrengthening",
+          "Flammenwerpfer",
+          "laser",
+          "mines",
+          "plasmaGun",
+          "empBomb",
+          "ram",
+          "gatling gun"
+        ].map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
   void navigationTapped(int page) {
     _pageController.animateToPage(page,
         duration: const Duration(milliseconds: 400), curve: Curves.ease);
@@ -716,7 +798,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     _pageController = PageController();
     super.initState();
-    timer =
-        Timer.periodic(Duration(seconds: 3), (Timer t) => createJsonSendMqtt());
+    timer = Timer.periodic(
+        Duration(seconds: 3), (Timer t) => createJsonSendMqttButton());
   }
 }
