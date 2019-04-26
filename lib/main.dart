@@ -101,82 +101,96 @@ class _MyHomePageState extends State<MyHomePage> {
   String add_2 = "0";
   String add_3 = "0";
 
-  void addHascodeAddons(String dropdownAddOnValue, String addOnSelectionToJson) {
+  void addHascodeAddons(String dropdownAddOnValue, int addOnSelection) {
+    String addOnSelectionToJsonTemp = "";
     switch (dropdownAddOnValue) {
       case "rocketEngine":
         {
-          addOnSelectionToJson = rocketEngineAdd;
+          addOnSelectionToJsonTemp = rocketEngineAdd;
         }
         break;
       case "amphibious":
         {
-          addOnSelectionToJson = amphibiousAdd;
+          addOnSelectionToJsonTemp = amphibiousAdd;
         }
         break;
       case "harrier":
         {
-          addOnSelectionToJson = harrierAdd;
+          addOnSelectionToJsonTemp = harrierAdd;
         }
         break;
       case "adamantium":
         {
-          addOnSelectionToJson = adamantiumAdd;        }
+          addOnSelectionToJsonTemp = adamantiumAdd;        }
         break;
       case "gravyShield":
         {
-          addOnSelectionToJson = gravyShieldAdd;
+          addOnSelectionToJsonTemp = gravyShieldAdd;
         }
         break;
       case "nanobots":
         {
-          addOnSelectionToJson = nanobotsAdd;
+          addOnSelectionToJsonTemp = nanobotsAdd;
         }
         break;
       case "structuralStrengthening":
         {
-          addOnSelectionToJson = structuralStrengtheningAdd;
+          addOnSelectionToJsonTemp = structuralStrengtheningAdd;
         }
         break;
       case "Flammenwerpfer":
         {
-          addOnSelectionToJson = FlammenwerpferAdd;
+          addOnSelectionToJsonTemp = FlammenwerpferAdd;
         }
         break;
       case "laser":
         {
-          addOnSelectionToJson = laserAdd;
+          addOnSelectionToJsonTemp = laserAdd;
         }
         break;
       case "mines":
         {
-          addOnSelectionToJson = minesAdd;
+          addOnSelectionToJsonTemp = minesAdd;
         }
         break;
       case "plasmaGun":
         {
-          addOnSelectionToJson = plasmaGunAdd;
+          addOnSelectionToJsonTemp = plasmaGunAdd;
         }
         break;
       case "empBomb":
         {
-          addOnSelectionToJson =empBombAdd ;
+          addOnSelectionToJsonTemp =empBombAdd ;
         }
         break;
       case "ram":
         {
-          addOnSelectionToJson = ramAdd;
+          addOnSelectionToJsonTemp = ramAdd;
         }
         break;
       case "gatling gun":
         {
-          addOnSelectionToJson = gatlingGunAdd;
+          addOnSelectionToJsonTemp = gatlingGunAdd;
         }
         break;
       default:
         {
-          addOnSelectionToJson = "invalid";
+          addOnSelectionToJsonTemp = "invalid";
         }
         break;
+    }
+    switch(addOnSelection) {
+      case 1: {add_1 = addOnSelectionToJsonTemp;}
+      break;
+
+      case 2: {add_2 = addOnSelectionToJsonTemp;}
+      break;
+
+      case 3: {add_3 = addOnSelectionToJsonTemp;}
+      break;
+
+      default: {add_1 = "invalidchose";}
+      break;
     }
   }
 
@@ -262,12 +276,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  final brokerAddressController = TextEditingController(text: 'labict.be');
+  final brokerAddressController = TextEditingController(text: '0080d0803b102f01');
   final usernameController = TextEditingController(text: 'Tester');
   //final passwordController = TextEditingController();
 
   //String broker = 'eu.thethings.network';
-  String broker = "";
+  String broker = "labict.be";
   String usernameBroker = "";
   String passwordBroker = "";
 
@@ -286,7 +300,8 @@ class _MyHomePageState extends State<MyHomePage> {
   int _page = 0;
 
   void addValuesToMqttClient() {
-    broker = brokerAddressController.text;
+    broker = "labict.be";
+    idHardware = brokerAddressController.text;
     username = usernameController.text;
     //password = passwordController.text;
   }
@@ -506,7 +521,7 @@ class _MyHomePageState extends State<MyHomePage> {
             title: TextField(
               controller: brokerAddressController,
               decoration: InputDecoration(
-                hintText: "server address broker",
+                hintText: "id",
               ),
             ),
           ),
@@ -618,7 +633,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                       */
-                      addOnController(dropdownAddOnValue1, add_1, 0, 0, 0, 0),
+                      addOnController1(1, 0, 0, 0, 0),
                       buttonControllerMove(
                           Icons.arrow_drop_up, onPressedUp, 8, 0, 30, 60),
                       buttonControllerMove(
@@ -658,7 +673,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      addOnController(dropdownAddOnValue2, add_2, 0, 0, 0, 0),
+                      addOnController2(2, 0, 0, 0, 0),
                       buttonControllerAction(
                           Icons.arrow_left, actionY, 50, 0, 80, 125),
                     ],
@@ -678,7 +693,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      addOnController(dropdownAddOnValue3, add_3, 0, 0, 0, 0),
+                      addOnController3(3, 0, 0, 0, 0),
                       buttonControllerAction(
                           Icons.arrow_right, ActionA, 0, 0, 80, 125),
                     ],
@@ -742,23 +757,25 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget addOnController( String dropdownAddOnValue,
-      String addOnSelectionToJson, double left, double right, double top, double bottom) {
+  Widget addOnController1(
+      int addOnSelectionToJson, double left, double right, double top, double bottom) {
     return Container(
-      width: 77,
+      width: 80,
       padding:
-          EdgeInsets.only(left: left, right: right, top: top, bottom: bottom),
+      EdgeInsets.only(left: left, right: right, top: top, bottom: bottom),
       child: DropdownButton<String>(
-        value: dropdownAddOnValue,
+        isExpanded: true,
+        value: dropdownAddOnValue1,
         onChanged: (String newValue) {
           setState(() {
-            dropdownAddOnValue = newValue;
-            addHascodeAddons(dropdownAddOnValue, addOnSelectionToJson);
+            dropdownAddOnValue1 = newValue;
+            addHascodeAddons(dropdownAddOnValue1, addOnSelectionToJson);
             createJsonSendMqttStart();
           });
         },
         items: <String>[
-          dropdownAddOnValue,
+          //dropdownAddOnValue,
+          "Add on",
           "rocketEngine",
           "amphibious",
           "harrier",
@@ -776,7 +793,105 @@ class _MyHomePageState extends State<MyHomePage> {
         ].map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
-            child: Text(value),
+            child: Text(value,
+                style: new TextStyle(
+                  color: Colors.black,
+                  fontSize: 15.0,
+                )),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  Widget addOnController2(
+      int addOnSelectionToJson, double left, double right, double top, double bottom) {
+    return Container(
+      width: 80,
+      padding:
+      EdgeInsets.only(left: left, right: right, top: top, bottom: bottom),
+      child: DropdownButton<String>(
+        isExpanded: true,
+        value: dropdownAddOnValue2,
+        onChanged: (String newValue) {
+          setState(() {
+            dropdownAddOnValue2 = newValue;
+            addHascodeAddons(dropdownAddOnValue2, addOnSelectionToJson);
+            createJsonSendMqttStart();
+          });
+        },
+        items: <String>[
+          //dropdownAddOnValue,
+          "Add on",
+          "rocketEngine",
+          "amphibious",
+          "harrier",
+          "adamantium",
+          "gravyShield",
+          "nanobots",
+          "structuralStrengthening",
+          "Flammenwerpfer",
+          "laser",
+          "mines",
+          "plasmaGun",
+          "empBomb",
+          "ram",
+          "gatling gun"
+        ].map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value,
+                style: new TextStyle(
+                  color: Colors.black,
+                  fontSize: 15.0,
+                )),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  Widget addOnController3(
+      int addOnSelectionToJson, double left, double right, double top, double bottom) {
+    return Container(
+      width: 80,
+      padding:
+      EdgeInsets.only(left: left, right: right, top: top, bottom: bottom),
+      child: DropdownButton<String>(
+        isExpanded: true,
+        value: dropdownAddOnValue3,
+        onChanged: (String newValue) {
+          setState(() {
+            dropdownAddOnValue3 = newValue;
+            addHascodeAddons(dropdownAddOnValue3, addOnSelectionToJson);
+            createJsonSendMqttStart();
+          });
+        },
+        items: <String>[
+          //dropdownAddOnValue,
+          "Add on",
+          "rocketEngine",
+          "amphibious",
+          "harrier",
+          "adamantium",
+          "gravyShield",
+          "nanobots",
+          "structuralStrengthening",
+          "Flammenwerpfer",
+          "laser",
+          "mines",
+          "plasmaGun",
+          "empBomb",
+          "ram",
+          "gatling gun"
+        ].map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value,
+                style: new TextStyle(
+                  color: Colors.black,
+                  fontSize: 15.0,
+                )),
           );
         }).toList(),
       ),
