@@ -577,7 +577,9 @@ class _MyHomePageState extends State<MyHomePage> {
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: ExactAssetImage('assets/image/bug-logo-z.png'),
-                fit: BoxFit.cover,
+                fit: BoxFit.fitWidth,
+                  alignment: Alignment.bottomCenter
+
               ),
             ),
           ),
@@ -590,8 +592,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+                      addOnController(dropdownAddOnValue1, add_1, 20, 0, 0, 100),
                       buttonControllerMove(
-                          Icons.arrow_left, onPressedLeft, 35, 0, 8, 0),
+                          Icons.arrow_left, onPressedLeft,85, 0, 0, 80),
                     ],
                   ),
                   //2e colom
@@ -633,11 +636,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                       */
-                      addOnController1(1, 0, 0, 0, 0),
                       buttonControllerMove(
-                          Icons.arrow_drop_up, onPressedUp, 8, 0, 30, 60),
+                          Icons.arrow_drop_up, onPressedUp, 0, 0, 130, 60),
                       buttonControllerMove(
-                          Icons.arrow_drop_down, onPressedDown, 8, 0, 0, 70),
+                          Icons.arrow_drop_down, onPressedDown, 0, 0, 0, 70),
                     ],
                   ),
                   //3e colom
@@ -645,7 +647,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       buttonControllerMove(
-                          Icons.arrow_right, onPressedRight, 0, 0, 8, 0),
+                          Icons.arrow_right, onPressedRight, 0, 0, 70, 0),
                     ],
                   ),
 
@@ -655,7 +657,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       buttonControllerAction(
-                          Icons.adjust, actionSelect, 50, 0, 115, 100),
+                          Icons.adjust, actionSelect, 40, 0, 180, 100),
                     ],
                   ),
 
@@ -665,7 +667,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       buttonControllerAction(
-                          Icons.adjust, actionStart, 40, 0, 115, 55),
+                          Icons.adjust, actionStart, 20, 0, 130, 55),
                     ],
                   ),
                   //6e colom
@@ -675,7 +677,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: <Widget>[
                       addOnController2(2, 0, 0, 0, 0),
                       buttonControllerAction(
-                          Icons.arrow_left, actionY, 50, 0, 80, 125),
+                          Icons.arrow_left, actionY, 50, 0, 150, 125),
                     ],
                   ),
                   //7ecolom
@@ -684,9 +686,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       buttonControllerAction(
-                          Icons.arrow_drop_up, actionX, 10, 0, 5, 0),
+                          Icons.arrow_drop_up, actionX, 10, 0, 70, 0),
                       buttonControllerAction(
-                          Icons.arrow_drop_down, actionB, 10, 0, 80, 0),
+                          Icons.arrow_drop_down, actionB, 10, 0, 60, 0),
                     ],
                   ),
 //8e colom
@@ -695,7 +697,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: <Widget>[
                       addOnController3(3, 0, 0, 0, 0),
                       buttonControllerAction(
-                          Icons.arrow_right, ActionA, 0, 0, 80, 125),
+                          Icons.arrow_right, ActionA, 0, 20, 80, 70),
                     ],
                   ),
                 ],
