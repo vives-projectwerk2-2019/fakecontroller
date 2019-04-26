@@ -592,7 +592,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      addOnController(dropdownAddOnValue1, add_1, 20, 0, 0, 100),
+                      addOnController1(1, 20, 0, 0, 100),
                       buttonControllerMove(
                           Icons.arrow_left, onPressedLeft,85, 0, 0, 80),
                     ],
