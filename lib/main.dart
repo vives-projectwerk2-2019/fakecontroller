@@ -23,7 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String dropdownValueHealthDefault = 'Health';
   String dropdownValueWeaponDefault = 'Weapon';
   static const String pubTopic = 'TTN';
-
+  int media;
   //builder.addString('Hello from mqtt_client');
 
   Timer timer;
@@ -340,7 +340,8 @@ class _MyHomePageState extends State<MyHomePage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        ///resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomPadding: false,
+
         ///
         //
         /*
@@ -429,7 +430,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Container _buildFakecontrollerPage() {
-    return Container(
+   // media = MediaQuery.of(context).size as int;
+    return
+      Container(
       child: Stack(
         children: <Widget>[
           Container(
@@ -449,7 +452,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      buttonControllerMove(
+                     buttonControllerMove(
                           Icons.arrow_left, onPressedLeft, 35, 0, 8, 0),
                     ],
                   ),
@@ -609,32 +612,34 @@ class _MyHomePageState extends State<MyHomePage> {
                         flex: 1,
                         child: Container(
                           width: 73.0,
-                          child: DropdownButton<String>(
-                            isExpanded: true,
-                            value: dropdownValueWeaponDefault,
-                            onChanged: (String newValue) {
-                              setState(() {
-                                dropdownValueWeaponDefault = newValue;
-                              });
-                            },
-                            items: <String>[
-                              dropdownValueWeaponDefault,
-                              'Flammenwerpfer',
-                              'Laser',
-                              'Mines',
-                              'Plasma gun',
-                              'EMP bomb',
-                              'Ram'
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value,
-                                    style: new TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 10.0,
-                                    )),
-                              );
-                            }).toList(),
+                          child: Center(
+                            child: DropdownButton<String>(
+                              isExpanded: true,
+                              value: dropdownValueWeaponDefault,
+                              onChanged: (String newValue) {
+                                setState(() {
+                                  dropdownValueWeaponDefault = newValue;
+                                });
+                              },
+                              items: <String>[
+                                dropdownValueWeaponDefault,
+                                'Flammenwerpfer',
+                                'Laser',
+                                'Mines',
+                                'Plasma gun',
+                                'EMP bomb',
+                                'Ram'
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value,
+                                      style: new TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 10.0,
+                                      )),
+                                );
+                              }).toList(),
+                            ),
                           ),
                         ),
                       ),
@@ -656,6 +661,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Container(
       padding:
           EdgeInsets.only(left: left, right: right, top: top, bottom: bottom),
+          alignment: Alignment.center,
       child: Opacity(
         opacity: opacityValue,
         child: GestureDetector(
