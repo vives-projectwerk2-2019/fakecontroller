@@ -592,9 +592,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      addOnController1(1, 20, 0, 0, 100),
+                      addOnController1(1, 20, 0, 5, 150),
                       buttonControllerMove(
-                          Icons.arrow_left, onPressedLeft,85, 0, 0, 80),
+                          Icons.arrow_left, onPressedLeft,85, 0, 0, 130),
                     ],
                   ),
                   //2e colom
@@ -697,7 +697,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: <Widget>[
                       addOnController3(3, 0, 0, 0, 0),
                       buttonControllerAction(
-                          Icons.arrow_right, ActionA, 0, 20, 80, 70),
+                          Icons.arrow_right, ActionA, 0, 20, 150, 125),
                     ],
                   ),
                 ],
@@ -762,7 +762,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget addOnController1(
       int addOnSelectionToJson, double left, double right, double top, double bottom) {
     return Container(
-      width: 80,
+      width: 100,
       padding:
       EdgeInsets.only(left: left, right: right, top: top, bottom: bottom),
       child: DropdownButton<String>(
