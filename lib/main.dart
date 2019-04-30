@@ -610,23 +610,28 @@ class _MyHomePageState extends State<MyHomePage> {
                   alignment: Alignment.bottomCenter),
             ),
           ),
-          SingleChildScrollView(
-            child: Row(
+         //SingleChildScrollView(
+             Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 //1e colom
                 Column(
                   //mainAxisSize: MainAxisSize.min,
                   //crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    addOnController1(1, 20, 0, 0, 150),
+                    addOnController1(1, 0, 0, 0, 90),
                     buttonControllerMove(
-                        Icons.arrow_left, onPressedLeft, 85, 0, 0, 130),
+                      //left: left, right: right, top: top, bottom: bottom
+                        Icons.arrow_left, onPressedLeft, 75, 0, 0, 140),
                   ],
                 ),
                 //2e colom
                 Column(
                   //crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     /*
@@ -663,23 +668,24 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       */
                     buttonControllerMove(
-                        Icons.arrow_drop_up, onPressedUp, 0, 0, 0, 60),
+                        Icons.arrow_drop_up, onPressedUp, 0, 0, 0, 50),
                     buttonControllerMove(
-                        Icons.arrow_drop_down, onPressedDown, 0, 0, 0, 70),
+                        Icons.arrow_drop_down, onPressedDown, 0, 0, 0, 90),
                   ],
                 ),
                 //3e colom
                 Column(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     buttonControllerMove(
-                        Icons.arrow_right, onPressedRight, 0, 0, 0, 0),
+                        Icons.arrow_right, onPressedRight, 0, 0, 0, 140),
                   ],
                 ),
 
                 //4e colom
                 Column(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     buttonControllerAction(
@@ -689,46 +695,47 @@ class _MyHomePageState extends State<MyHomePage> {
 
                 //5e kolom
                 Column(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     buttonControllerAction(
-                        Icons.adjust, actionStart, 20, 0, 0, 55),
+                        Icons.adjust, actionStart, 20, 0, 0, 100),
                   ],
                 ),
                 //6e colom
                 Column(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    addOnController2(2, 0, 0, 0, 0),
+                    addOnController2(2, 0, 0, 0, 90),
                     buttonControllerAction(
-                        Icons.arrow_left, actionY, 50, 0, 0, 125),
+                        Icons.arrow_left, actionY, 35, 0, 0, 140),
                   ],
                 ),
                 //7ecolom
                 Column(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     buttonControllerAction(
-                        Icons.arrow_drop_up, actionX, 10, 0, 0, 0),
+                        Icons.arrow_drop_up, actionX, 0, 0, 0, 60),
                     buttonControllerAction(
-                        Icons.arrow_drop_down, actionB, 10, 0, 0, 0),
+                        Icons.arrow_drop_down, actionB, 0, 0, 0, 85),
                   ],
                 ),
 //8e colom
                 Column(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    addOnController3(3, 0, 0, 0, 0),
+                    addOnController3(3, 0, 0, 0, 90),
                     buttonControllerAction(
-                        Icons.arrow_right, ActionA, 0, 20, 0, 125),
+                        Icons.arrow_right, ActionA, 0, 20, 0, 140),
                   ],
                 ),
               ],
             ),
-          ),
+          //),
         ],
       ),
     );
@@ -744,7 +751,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: GestureDetector(
           onTapDown: method,
           onTapUp: (_) {
-            movement = "idle";
+           // movement = "idle";
           },
           // Our Custom Button!
           child: Container(
@@ -769,7 +776,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: GestureDetector(
           onTapDown: method,
           onTapUp: (_) {
-            action = "idle";
+            //action = "idle";
           },
           // Our Custom Button!
           child: Container(
