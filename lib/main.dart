@@ -54,6 +54,20 @@ class _MyHomePageState extends State<MyHomePage> {
   bool BButtonState = false;
   bool startApp = true;
 
+  Color leftButtonStateC =  Colors.red;
+  Color rightButtonStateC =  Colors.red;
+  Color upButtonStateC =  Colors.red;
+  Color downButtonStateC = Colors.red;
+  Color selectButtonStateC =  Colors.red;
+  Color startButtonStateC =  Colors.red;
+  Color YButtonStateC =  Colors.red;
+  Color AButtonStateC =  Colors.red;
+  Color XButtonStateC =  Colors.red;
+  Color BButtonStateC = Colors.red;
+
+  //Color selection = Colors.green[400];
+
+
   void createJsonSendMqttButton() {
     if (client?.connectionState == mqtt.MqttConnectionState.connected) {
       displayedString = '{"movement":"' +
@@ -230,61 +244,61 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  void onPressedLeft(_) {
+  void onPressedLeft() {
     setState(() {
       movement = "left";
     });
   }
 
-  void onPressedUp(_) {
+  void onPressedUp() {
     setState(() {
       movement = "forward";
     });
   }
 
-  void onPressedDown(_) {
+  void onPressedDown() {
     setState(() {
       movement = "backward";
     });
   }
 
-  void onPressedRight(_) {
+  void onPressedRight() {
     setState(() {
       movement = "right";
     });
   }
 
-  void actionSelect(_) {
+  void actionSelect() {
     setState(() {
       action = "Select";
     });
   }
 
-  void actionStart(_) {
+  void actionStart() {
     setState(() {
       action = "start";
     });
   }
 
-  void actionY(_) {
+  void actionY() {
     setState(() {
       action = "Y";
     });
   }
 
-  void actionX(_) {
+  void actionX() {
     setState(() {
       action = "X";
     });
   }
 
-  void actionB(_) {
+  void actionB() {
     setState(() {
       action = "B";
     });
   }
 
-  void ActionA(_) {
+  void ActionA() {
     setState(() {
       action = "A";
     });
@@ -607,7 +621,7 @@ class _MyHomePageState extends State<MyHomePage> {
               image: DecorationImage(
                   image: ExactAssetImage('assets/image/bug-logo-z.png'),
                   fit: BoxFit.fitWidth,
-                  alignment: Alignment.bottomCenter),
+                  alignment: Alignment.bottomLeft),
             ),
           ),
          //SingleChildScrollView(
@@ -620,12 +634,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   //mainAxisSize: MainAxisSize.min,
                   //crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     addOnController1(1, 0, 0, 0, 90),
                     buttonControllerMove(
                       //left: left, right: right, top: top, bottom: bottom
-                        Icons.arrow_left, onPressedLeft, 75, 0, 0, 140),
+                        Icons.arrow_left, onPressedLeft,leftButtonStateC, 75, 0, 0, 140),
                   ],
                 ),
                 //2e colom
@@ -668,9 +682,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       */
                     buttonControllerMove(
-                        Icons.arrow_drop_up, onPressedUp, 0, 0, 0, 50),
+                        Icons.arrow_drop_up, onPressedUp,upButtonStateC, 0, 0, 0, 50),
                     buttonControllerMove(
-                        Icons.arrow_drop_down, onPressedDown, 0, 0, 0, 90),
+                        Icons.arrow_drop_down, onPressedDown,downButtonStateC, 0, 0, 0, 90),
                   ],
                 ),
                 //3e colom
@@ -679,7 +693,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     buttonControllerMove(
-                        Icons.arrow_right, onPressedRight, 0, 0, 0, 140),
+                        Icons.arrow_right, onPressedRight,rightButtonStateC, 0, 0, 0, 140),
                   ],
                 ),
 
@@ -689,7 +703,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     buttonControllerAction(
-                        Icons.adjust, actionSelect, 40, 0, 0, 100),
+                        "Select", actionSelect, 40, 0, 0, 100),
                   ],
                 ),
 
@@ -699,7 +713,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     buttonControllerAction(
-                        Icons.adjust, actionStart, 20, 0, 0, 100),
+                        "Start", actionStart, 20, 0, 0, 100),
                   ],
                 ),
                 //6e colom
@@ -709,7 +723,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: <Widget>[
                     addOnController2(2, 0, 0, 0, 90),
                     buttonControllerAction(
-                        Icons.arrow_left, actionY, 35, 0, 0, 140),
+                        "Y", actionY, 35, 0, 0, 140),
                   ],
                 ),
                 //7ecolom
@@ -718,9 +732,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     buttonControllerAction(
-                        Icons.arrow_drop_up, actionX, 0, 0, 0, 60),
+                        "X", actionX, 0, 0, 0, 60),
                     buttonControllerAction(
-                        Icons.arrow_drop_down, actionB, 0, 0, 0, 85),
+                        "B", actionB, 0, 0, 0, 85),
                   ],
                 ),
 //8e colom
@@ -730,7 +744,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: <Widget>[
                     addOnController3(3, 0, 0, 0, 90),
                     buttonControllerAction(
-                        Icons.arrow_right, ActionA, 0, 20, 0, 140),
+                        "A", ActionA, 0, 20, 0, 140),
                   ],
                 ),
               ],
@@ -741,52 +755,30 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget buttonControllerMove(IconData button, method, double left,
+  Widget buttonControllerMove(IconData button, method,Color color , double left,
       double right, double top, double bottom) {
     return Container(
       padding:
-          EdgeInsets.only(left: left, right: right, top: top, bottom: bottom),
-      child: Opacity(
-        opacity: opacityValue,
-        child: GestureDetector(
-          onTapDown: method,
-          onTapUp: (_) {
-           // movement = "idle";
-          },
-          // Our Custom Button!
-          child: Container(
-            child: ButtonTheme(
-              minWidth: 50.0,
-              height: 50.0,
-              child: RaisedButton(child: Icon(button), color: Colors.red),
-            ),
-          ),
-        ),
+      EdgeInsets.only(left: left, right: right, top: top, bottom: bottom),
+      child: ButtonTheme(
+        minWidth: 50.0,
+        height: 50.0,
+        child: RaisedButton(
+            child: Icon(button), color: color, onPressed: method),
       ),
     );
   }
 
-  Widget buttonControllerAction(IconData button, method, double left,
+  Widget buttonControllerAction(String button, method, double left,
       double right, double top, double bottom) {
     return Container(
       padding:
-          EdgeInsets.only(left: left, right: right, top: top, bottom: bottom),
-      child: Opacity(
-        opacity: opacityValue,
-        child: GestureDetector(
-          onTapDown: method,
-          onTapUp: (_) {
-            //action = "idle";
-          },
-          // Our Custom Button!
-          child: Container(
-            child: ButtonTheme(
-              minWidth: 50.0,
-              height: 50.0,
-              child: RaisedButton(child: Icon(button), color: Colors.red),
-            ),
-          ),
-        ),
+      EdgeInsets.only(left: left, right: right, top: top, bottom: bottom),
+      child: ButtonTheme(
+        minWidth: 50.0,
+        height: 50.0,
+        child: RaisedButton(
+            child: Text(button), color: Colors.red, onPressed: method),
       ),
     );
   }
@@ -809,7 +801,7 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         items: <String>[
           //dropdownAddOnValue,
-          "Add on",
+          "Add on",// need the same ontherwase crash
           "rocketEngine",
           "amphibious",
           "harrier",
