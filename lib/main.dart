@@ -583,16 +583,15 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
-          Center(
-            child: SingleChildScrollView(
+            SingleChildScrollView(
               child: Row(
                 children: <Widget>[
                   //1e colom
                   Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    //mainAxisSize: MainAxisSize.min,
+                    //crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      addOnController1(1, 20, 0, 5, 150),
+                      addOnController1(1, 20, 0, 0, 150),
                       buttonControllerMove(
                           Icons.arrow_left, onPressedLeft,85, 0, 0, 130),
                     ],
@@ -637,7 +636,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       */
                       buttonControllerMove(
-                          Icons.arrow_drop_up, onPressedUp, 0, 0, 130, 60),
+                          Icons.arrow_drop_up, onPressedUp, 0, 0, 0, 60),
                       buttonControllerMove(
                           Icons.arrow_drop_down, onPressedDown, 0, 0, 0, 70),
                     ],
@@ -647,7 +646,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       buttonControllerMove(
-                          Icons.arrow_right, onPressedRight, 0, 0, 70, 0),
+                          Icons.arrow_right, onPressedRight, 0, 0, 0, 0),
                     ],
                   ),
 
@@ -657,7 +656,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       buttonControllerAction(
-                          Icons.adjust, actionSelect, 40, 0, 180, 100),
+                          Icons.adjust, actionSelect, 40, 0, 0, 100),
                     ],
                   ),
 
@@ -667,7 +666,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       buttonControllerAction(
-                          Icons.adjust, actionStart, 20, 0, 130, 55),
+                          Icons.adjust, actionStart, 20, 0, 0, 55),
                     ],
                   ),
                   //6e colom
@@ -677,7 +676,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: <Widget>[
                       addOnController2(2, 0, 0, 0, 0),
                       buttonControllerAction(
-                          Icons.arrow_left, actionY, 50, 0, 150, 125),
+                          Icons.arrow_left, actionY, 50, 0, 0, 125),
                     ],
                   ),
                   //7ecolom
@@ -686,9 +685,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       buttonControllerAction(
-                          Icons.arrow_drop_up, actionX, 10, 0, 70, 0),
+                          Icons.arrow_drop_up, actionX, 10, 0, 0, 0),
                       buttonControllerAction(
-                          Icons.arrow_drop_down, actionB, 10, 0, 60, 0),
+                          Icons.arrow_drop_down, actionB, 10, 0, 0, 0),
                     ],
                   ),
 //8e colom
@@ -697,13 +696,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: <Widget>[
                       addOnController3(3, 0, 0, 0, 0),
                       buttonControllerAction(
-                          Icons.arrow_right, ActionA, 0, 20, 150, 125),
+                          Icons.arrow_right, ActionA, 0, 20, 0, 125),
                     ],
                   ),
                 ],
               ),
             ),
-          ),
+
         ],
       ),
     );
