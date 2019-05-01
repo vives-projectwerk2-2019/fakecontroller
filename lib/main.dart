@@ -33,13 +33,11 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void dispose() {
     timer?.cancel();
-    brokerAddressController.dispose();
-    usernameController.dispose();
     super.dispose();
   }
 
   //qr scanner
-//{"user_dongle_id":"kiosk-hash","name":"kiosk-username"}
+
   Future _scanQR() async {
     try {
       String qr_code = await BarcodeScanner.scan();
@@ -73,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final String actionIdle = "idle";
   String movement = "idle";
   final String movementIdle = "idle";
-  String username = "gio_anil";
+  String username;
 
   bool leftButtonState = false;
   bool rightButtonState = false;
@@ -111,16 +109,18 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     }
   }
- _parseJsondecoder(qr_code){
+  _parseJsoniddecoder(qr_code){
 
   Map decoded = jsonDecode(qr_code);
    id =decoded['user_dongle_id'];
-  nickname = decoded['name'];
-  print(id);
-
-
-
+  return id;
 }
+  _parseJsonnicknamedecoder(qr_code){
+
+    Map decoded = jsonDecode(qr_code);
+    nickname = decoded['name'];
+    return nickname;
+  }
   String dropdownAddOnValue1 = "Add on";
   String dropdownAddOnValue2 = "Add on";
   String dropdownAddOnValue3 = "Add on";
@@ -319,9 +319,6 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  final brokerAddressController = TextEditingController(text: '0080d0803b102f01');
-  final usernameController = TextEditingController(text: 'Tester');
-
   String broker = "labict.be";
   String usernameBroker = "";
   String passwordBroker = "";
@@ -339,8 +336,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void addValuesToMqttClient() {
     broker = "labict.be";
-    idHardware = brokerAddressController.text;
-    username = usernameController.text;
+    idHardware = _parseJsoniddecoder(qr_code);
+    username = _parseJsonnicknamedecoder(qr_code);
   }
 
   void _connect() async {
@@ -498,11 +495,13 @@ class _MyHomePageState extends State<MyHomePage> {
         Container(
           padding: EdgeInsets.only(top: 30),
           child: ListTile(
-            leading: const Icon(Icons.location_city),
+            leading:Text(_parseJsoniddecoder(qr_code)),
+
             title: FloatingActionButton.extended(
               icon: Icon(Icons.camera_alt),
               label: Text("ID"),
               onPressed: _scanQR,
+
 
             ),
 
@@ -515,7 +514,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
         ListTile(
           leading: Text(
-              qr_code
+              _parseJsonnicknamedecoder(qr_code),
             /*   decoration: InputDecoration(
               hintText: "username",
             ),*/
@@ -699,6 +698,7 @@ class _MyHomePageState extends State<MyHomePage> {
               minWidth: 50.0,
               height: 50.0,
               child: RaisedButton(child: Icon(button), color: Colors.red),
+
             ),
           ),
         ),
