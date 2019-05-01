@@ -27,7 +27,6 @@ class _MyHomePageState extends State<MyHomePage> {
   static const String pubHardwareTopic = 'hardware';
   String qr_code;
   String id;
-  String nickname;
   Timer timer;
 
   @override
@@ -72,11 +71,11 @@ class _MyHomePageState extends State<MyHomePage> {
     id =decoded['user_dongle_id'];
     return id;
   }
-  _parseJsonnicknamedecoder(qr_code){
+  _parseJsonusernamedecoder(qr_code){
 
     Map decoded = jsonDecode(qr_code);
-    nickname = decoded['name'];
-    return nickname;
+    username = decoded['name'];
+    return username;
   }
 
 
@@ -106,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
           '","action":"' +
           action +
           '","dev_id":"' +
-          username +
+          _parseJsonusernamedecoder(qr_code) +
           '"}';
       if (displayedString != displayedStringOld) {
         displayedStringOld = displayedString;
@@ -245,7 +244,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void createJsonSendMqttStart() {
     if (client?.connectionState == mqtt.MqttConnectionState.connected) {
       displayedString2 = '{"id":"' +
-          idHardware +
+          _parseJsoniddecoder(qr_code) +
           '","add_1":"' +
           add_1 +
           '","add_2":"' +
@@ -253,7 +252,7 @@ class _MyHomePageState extends State<MyHomePage> {
           '","add_3":"' +
           add_3 +
           '","dev_id":"' +
-          username +
+          _parseJsonusernamedecoder(qr_code) +
           '"}';
 
       final mqtt.MqttClientPayloadBuilder builder =
@@ -342,7 +341,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void addValuesToMqttClient() {
     broker = "labict.be";
     idHardware = _parseJsoniddecoder(qr_code);
-    username = _parseJsonnicknamedecoder(qr_code);
+    username = _parseJsonusernamedecoder(qr_code);
   }
 
   void _connect() async {
@@ -519,7 +518,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
         ListTile(
           leading: Text(
-              _parseJsonnicknamedecoder(qr_code),
+              _parseJsonusernamedecoder(qr_code),
             /*   decoration: InputDecoration(
               hintText: "username",
             ),*/
