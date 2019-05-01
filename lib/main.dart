@@ -64,6 +64,20 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
   }
+  //jsondecoder for the qr input
+  _parseJsoniddecoder(qr_code)
+  {
+
+    Map decoded = jsonDecode(qr_code);
+    id =decoded['user_dongle_id'];
+    return id;
+  }
+  _parseJsonnicknamedecoder(qr_code){
+
+    Map decoded = jsonDecode(qr_code);
+    nickname = decoded['name'];
+    return nickname;
+  }
 
 
 
@@ -109,18 +123,9 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     }
   }
-  _parseJsoniddecoder(qr_code){
 
-  Map decoded = jsonDecode(qr_code);
-   id =decoded['user_dongle_id'];
-  return id;
-}
-  _parseJsonnicknamedecoder(qr_code){
 
-    Map decoded = jsonDecode(qr_code);
-    nickname = decoded['name'];
-    return nickname;
-  }
+
   String dropdownAddOnValue1 = "Add on";
   String dropdownAddOnValue2 = "Add on";
   String dropdownAddOnValue3 = "Add on";
@@ -139,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String ramAdd = "0122e76e424f7c79"; //-> 0122e76e424f7c79
   String gatlingGunAdd = "01f94b5e5d4277b5"; //-> 01f94b5e5d4277b5
 
-  String idHardware = "0080d0803b102f01";
+  String idHardware;
   String add_1 = "0";
   String add_2 = "0";
   String add_3 = "0";
