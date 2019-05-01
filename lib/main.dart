@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/rendering.dart';
-import 'package:qrcode_reader/QRCodeReader.dart';
+import 'package:qrcode_reader/qrcode_reader.dart';
 
 void main() => runApp(MyHomePage());
 
@@ -25,8 +25,9 @@ class _MyHomePageState extends State<MyHomePage> {
   String displayedStringOld = "";
   static const String pubTopic = 'ttn';
   static const String pubHardwareTopic = 'hardware';
-  String qr_code = "";
-
+  String qr_code;
+  String id;
+  String nickname;
   Timer timer;
 
   @override
@@ -38,10 +39,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   //qr scanner
-
+//{"user_dongle_id":"kiosk-hash","name":"kiosk-username"}
   Future _scanQR() async {
     try {
-      String qrResult = await BarcodeScanner.scan();
+      String qr_code = await BarcodeScanner.scan();
       setState(() {
         setState(() => this.qr_code = qr_code);
       });
@@ -65,6 +66,9 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
   }
+
+
+
   String action = "idle";
   final String actionIdle = "idle";
   String movement = "idle";
@@ -107,7 +111,16 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     }
   }
+ _parseJsondecoder(qr_code){
 
+  Map decoded = jsonDecode(qr_code);
+   id =decoded['user_dongle_id'];
+  nickname = decoded['name'];
+  print(id);
+
+
+
+}
   String dropdownAddOnValue1 = "Add on";
   String dropdownAddOnValue2 = "Add on";
   String dropdownAddOnValue3 = "Add on";
@@ -490,6 +503,7 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: Icon(Icons.camera_alt),
               label: Text("ID"),
               onPressed: _scanQR,
+
             ),
 
             //  controller: brokerAddressController,
@@ -500,12 +514,18 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
 
         ListTile(
-          leading: const Icon(Icons.more_horiz),
-          title: TextField(
-            controller: usernameController,
-            decoration: InputDecoration(
+          leading: Text(
+              qr_code
+            /*   decoration: InputDecoration(
               hintText: "username",
-            ),
+            ),*/
+            //keyboardType: TextInputType.number,
+          ),
+          title: Text(""
+         //   qr_code
+         /*   decoration: InputDecoration(
+              hintText: "username",
+            ),*/
             //keyboardType: TextInputType.number,
           ),
         ),
