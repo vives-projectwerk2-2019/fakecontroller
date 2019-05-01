@@ -20,9 +20,11 @@ environment:
   #ios: true
 
 dependencies:
-  mqtt_client: ^5.4.0
+
   flutter:
     sdk: flutter
+  mqtt_client: ^5.4.0
+  barcode_scan:
 
 
 

@@ -4,12 +4,16 @@ import 'dart:core';
 import 'package:mqtt_client/mqtt_client.dart' as mqtt;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:barcode_scan/barcode_scan.dart';
+import 'package:flutter/rendering.dart';
+import 'package:qrcode_reader/QRCodeReader.dart';
 
 void main() => runApp(MyHomePage());
 
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
+
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -21,20 +25,46 @@ class _MyHomePageState extends State<MyHomePage> {
   String displayedStringOld = "";
   static const String pubTopic = 'ttn';
   static const String pubHardwareTopic = 'hardware';
-  //builder.addString('Hello from mqtt_client');
+  String qr_code = "";
 
   Timer timer;
 
   @override
   void dispose() {
-    // Clean up the controller when the Widget is disposed
     timer?.cancel();
     brokerAddressController.dispose();
     usernameController.dispose();
-    //passwordController.dispose();
     super.dispose();
   }
 
+  //qr scanner
+
+  Future _scanQR() async {
+    try {
+      String qrResult = await BarcodeScanner.scan();
+      setState(() {
+        setState(() => this.qr_code = qr_code);
+      });
+    } on PlatformException catch (ex) {
+      if (ex.code == BarcodeScanner.CameraAccessDenied) {
+        setState(() {
+          qr_code = "Camera permission was denied";
+        });
+      } else {
+        setState(() {
+          qr_code = "Unknown Error $ex";
+        });
+      }
+    } on FormatException {
+      setState(() {
+        qr_code = "You pressed the back button before scanning anything";
+      });
+    } catch (ex) {
+      setState(() {
+        qr_code = "Unknown Error $ex";
+      });
+    }
+  }
   String action = "idle";
   final String actionIdle = "idle";
   String movement = "idle";
@@ -278,9 +308,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final brokerAddressController = TextEditingController(text: '0080d0803b102f01');
   final usernameController = TextEditingController(text: 'Tester');
-  //final passwordController = TextEditingController();
 
-  //String broker = 'eu.thethings.network';
   String broker = "labict.be";
   String usernameBroker = "";
   String passwordBroker = "";
@@ -291,9 +319,6 @@ class _MyHomePageState extends State<MyHomePage> {
   StreamSubscription subscription;
 
   String messageFromMqtt = '{}';
-  //Map jsonMap = JSON.decode(messageFromMqtt);
-  //Map<String, dynamic> user = jsonDecode(messageFromMqtt);
-  //dynamic convert(String input) => _parseJson(input, _reviver);
 
   Map<String, dynamic> jsonMQTT;
 
@@ -303,45 +328,14 @@ class _MyHomePageState extends State<MyHomePage> {
     broker = "labict.be";
     idHardware = brokerAddressController.text;
     username = usernameController.text;
-    //password = passwordController.text;
   }
 
   void _connect() async {
-    /// First create a client, the client is constructed with a broker name, client identifier
-    /// and port if needed. The client identifier (short ClientId) is an identifier of each MQTT
-    /// client connecting to a MQTT broker. As the word identifier already suggests, it should be unique per broker.
-    /// The broker uses it for identifying the client and the current state of the client. If you don’t need a state
-    /// to be hold by the broker, in MQTT 3.1.1 you can set an empty ClientId, which results in a connection without any state.
-    /// A condition is that clean session connect flag is true, otherwise the connection will be rejected.
-    /// The client identifier can be a maximum length of 23 characters. If a port is not specified the standard port
-    /// of 1883 is used.
-    /// If you want to use websockets rather than TCP see below.
 
     client = mqtt.MqttClient(broker, '');
-
-    //Try for password but not found it but in mqtt_client.dart can you work a round a give there your pass and username.
-    //mqtt.connectionMessage.authenticateAs(username, password);
-    //mqtt.connect([String username, String password]);
-
-    /// A websocket URL must start with ws:// or wss:// or Dart will throw an exception, consult your websocket MQTT broker
-    /// for details.
-    /// To use websockets add the following lines -:
-    // client.useWebSocket = true;
-
-    /// This flag causes the mqtt client to use an alternate method to perform the WebSocket handshake. This is needed for certain
-    /// matt clients (Particularly Amazon Web Services IOT) that will not tolerate additional message headers in their get request
-    // client.useAlternateWebSocketImplementation = true;
-    // client.port = 443; // ( or whatever your WS port is)
-    /// Note do not set the secure flag if you are using wss, the secure flags is for TCP sockets only.
-
-    /// Set logging on if needed, defaults to off
     client.logging(on: true);
-
-    /// If you intend to use a keep alive value in your connect message that is not the default(60s)
-    /// you must set it here
     client.keepAlivePeriod = 30;
 
-    /// Add the unsolicited disconnection callback
     client.onDisconnected = _onDisconnected;
 
     /// Create a connection message to use or use the default one. The default one sets the
@@ -352,7 +346,6 @@ class _MyHomePageState extends State<MyHomePage> {
         .authenticateAs(
             usernameBroker, passwordBroker) // important to connect to broker!!
 
-        // Must agree with the keep alive set above or not set
         .startClean() // Non persistent session for testing
         .keepAliveFor(30)
         // If you set this you must set a will message
@@ -417,20 +410,10 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       this.messageFromMqtt = message;
 
-      //jsonMQTT = jsonDecode(messageFromMqtt);
       setState(() {
-        /*
-        fakecontrollerGettingInformation = jsonMQTT["example"]['example2'][0]["example3"];
-
-        */
       });
     });
 
-    /// The above may seem a little convoluted for users only interested in the
-    /// payload, some users however may be interested in the received publish message,
-    /// lets not constrain ourselves yet until the package has been in the wild
-    /// for a while.
-    /// The payload is a byte buffer, this will be specific to the topic
     print('MQTT message: topic is <${event[0].topic}>, '
         'payload is <-- ${message} -->');
     setState(() {});
@@ -481,22 +464,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        ///resizeToAvoidBottomPadding: false,
-        ///
-        //
-        /*
-        bottomNavigationBar: BottomNavigationBar(
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-                icon: Icon(Icons.build), title: Text('Add broker')),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.gamepad), title: Text('BUG Controller')),
-          ],
-          currentIndex: _page,
-          fixedColor: Colors.blue,
-          onTap: navigationTapped,
-        ),
-        */
+
         body: PageView(
           controller: _pageController,
           onPageChanged: onPageChanged,
@@ -518,14 +486,19 @@ class _MyHomePageState extends State<MyHomePage> {
           padding: EdgeInsets.only(top: 30),
           child: ListTile(
             leading: const Icon(Icons.location_city),
-            title: TextField(
-              controller: brokerAddressController,
-              decoration: InputDecoration(
-                hintText: "id",
-              ),
+            title: FloatingActionButton.extended(
+              icon: Icon(Icons.camera_alt),
+              label: Text("ID"),
+              onPressed: _scanQR,
+            ),
+
+            //  controller: brokerAddressController,
+            //  decoration: InputDecoration(
+             //   hintText: "id",
+            //  ),
             ),
           ),
-        ),
+
         ListTile(
           leading: const Icon(Icons.more_horiz),
           title: TextField(
@@ -536,18 +509,6 @@ class _MyHomePageState extends State<MyHomePage> {
             //keyboardType: TextInputType.number,
           ),
         ),
-        /*
-        ListTile(
-          leading: const Icon(Icons.more_vert),
-          title: TextField(
-            controller: passwordController,
-            decoration: InputDecoration(
-              hintText: "password",
-            ),
-            //keyboardType: TextInputType.number,
-          ),
-        ),
-        */
         RaisedButton(
           child: Text(
               client?.connectionState == mqtt.MqttConnectionState.connected
@@ -603,39 +564,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      /*
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          width:
-                              77.0, // 77 because othrise the t wil be on a nieuw line
-                          child: DropdownButton<String>(
-                            isExpanded: true,
-                            value: dropdownValueMovementDefault,
-                            onChanged: (String newValue) {
-                              setState(() {
-                                dropdownValueMovementDefault = newValue;
-                              });
-                            },
-                            items: <String>[
-                              dropdownValueMovementDefault,
-                              'Rocket engine',
-                              'Amphibious',
-                              'Harrier'
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value,
-                                    style: new TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 10.0,
-                                    )),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ),
-                      */
                       buttonControllerMove(
                           Icons.arrow_drop_up, onPressedUp, 0, 0, 130, 60),
                       buttonControllerMove(
@@ -650,7 +578,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           Icons.arrow_right, onPressedRight, 0, 0, 70, 0),
                     ],
                   ),
-
                   //4e colom
                   Column(
                     mainAxisSize: MainAxisSize.min,
@@ -899,6 +826,58 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
+
+
+
+    /*Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('QR Code Scanner & Generator'),
+      ),
+      body: Center(
+          child:
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                child: RaisedButton(
+                    color: Colors.blue,
+                    textColor: Colors.white,
+                    splashColor: Colors.blueGrey,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Scan()),
+                      );
+                    },
+                    child: const Text('SCAN QR CODE')
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                child: RaisedButton(
+                    color: Colors.blue,
+                    textColor: Colors.white,
+                    splashColor: Colors.blueGrey,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => GenerateScreen()),
+                      );
+                    },
+                    child: const Text('GENERATE QR CODE')
+                ),
+              ),
+            ],
+          )
+      ),
+    );
+  }
+}*/
 
   void navigationTapped(int page) {
     _pageController.animateToPage(page,
