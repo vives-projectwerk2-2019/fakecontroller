@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/rendering.dart';
-import 'package:qrcode_reader/qrcode_reader.dart';
+//import 'package:qrcode_reader/qrcode_reader.dart';
 
 void main() => runApp(MyHomePage());
 
@@ -499,7 +499,7 @@ class _MyHomePageState extends State<MyHomePage> {
         Container(
           padding: EdgeInsets.only(top: 30),
           child: ListTile(
-            leading:Text(_parseJsoniddecoder(qr_code)),
+            leading:Text(""/*_parseJsoniddecoder(qr_code)*/),
 
             title: FloatingActionButton.extended(
               icon: Icon(Icons.camera_alt),
@@ -518,7 +518,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
         ListTile(
           leading: Text(
-              _parseJsonusernamedecoder(qr_code),
+           ""//   _parseJsonusernamedecoder(qr_code),
             /*   decoration: InputDecoration(
               hintText: "username",
             ),*/
